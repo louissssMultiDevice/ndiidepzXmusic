@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Artist - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .artist-section {
+            padding: 40px 0;
+        }
+        
+        .artist-header {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .artist-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+        
+        .artist-info {
+            flex: 1;
+        }
+        
+        .artist-info h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .artist-info .bio {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .artist-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .top-songs {
+            margin-top: 40px;
+        }
+        
+        .song-list {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--dark-gray);
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .song-item:hover {
+            background-color: #282828;
+        }
+        
+        .song-item:last-child {
+            border-bottom: none;
+        }
+        
+        .song-cover-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+        
+        .song-info {
+            flex: 1;
+        }
+        
+        .song-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .song-album {
+            color: var(--gray);
+            font-size: 12px;
+        }
+        
+        .song-plays {
+            color: var(--gray);
+            font-size: 14px;
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        .all-songs {
+            margin-top: 40px;
+        }
+        
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="docs.html">Beranda</a>
+                    <a href="explore.html">Jelajahi</a>
+                    <a href="search-users.html">Cari User</a>
+                    <a href="search-artists.html">Cari Artist</a>
+                    <a href="profile.html">Profil</a>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <span id="username">User</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Artist Section -->
+    <section class="artist-section">
+        <div class="container">
+            <div class="artist-header" id="artistHeader">
+                <!-- Artist data will be loaded here -->
+            </div>
+            
+            <div class="top-songs">
+                <h2 class="section-title">Lagu Terpopuler</h2>
+                <div class="song-list" id="topSongsContainer">
+                    <!-- Top songs will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="all-songs">
+                <h2 class="section-title">Semua Lagu</h2>
+                <div class="songs-grid" id="allSongsContainer">
+                    <!-- All songs will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="music-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load current user data
+            const userData = getCurrentUserData();
+            if (userData) {
+                document.getElementById('username').textContent = userData.profile.username;
+                document.getElementById('userAvatar').textContent = userData.profile.username.charAt(0).toUpperCase();
+            }
+            
+            // Get artist name from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const artistName = urlParams.get('artist');
+            
+            if (artistName) {
+                loadArtistProfile(artistName);
+            } else {
+                window.location.href = 'search-artists.html';
+            }
+        });
+        
+        function loadArtistProfile(artistName) {
+            const profile = getArtistProfile(artistName);
+            
+            if (!profile) {
+                document.getElementById('artistHeader').innerHTML = `
+                    <div style="text-align: center; width: 100%; padding: 40px;">
+                        <i class="fas fa-microphone-slash" style="font-size: 50px; color: var(--gray); margin-bottom: 15px;"></i>
+                        <h2>Artist tidak ditemukan</h2>
+                        <p>Artist "${artistName}" tidak ditemukan.</p>
+                        <button class="btn btn-primary" onclick="window.location.href='search-artists.html'">
+                            Kembali ke Pencarian
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Update artist header
+            document.getElementById('artistHeader').innerHTML = `
+                <div class="artist-avatar-large" style="background-image: url('${profile.profilePic}')"></div>
+                <div class="artist-info">
+                    <h1>${profile.name}</h1>
+                    <p class="bio">${profile.bio}</p>
+                    
+                    <div class="artist-stats">
+                        <div class="profile-stat">
+                            <div class="stat-number">${profile.followerCount}</div>
+                            <div class="stat-label">Pengikut</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-number">${profile.monthlyListeners}</div>
+                            <div class="stat-label">Pendengar Bulanan</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="stat-number">${profile.totalPlays}</div>
+                            <div class="stat-label">Total Diputar</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn ${isArtistFollowed(profile.id) ? 'btn-primary' : 'btn-outline'}" id="followArtistBtn" onclick="toggleFollowArtist(${profile.id})">
+                            ${isArtistFollowed(profile.id) ? '<i class="fas fa-check"></i> Following' : '<i class="fas fa-plus"></i> Follow'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Load top songs
+            loadTopSongs(profile.topSongs);
+            
+            // Load all songs
+            loadAllSongs(profile.songs);
+        }
+        
+        function isArtistFollowed(artistId) {
+            const userData = getCurrentUserData();
+            return userData.favorites.artists ? userData.favorites.artists.includes(artistId) : false;
+        }
+        
+        function loadTopSongs(topSongs) {
+            const container = document.getElementById('topSongsContainer');
+            
+            if (!topSongs || topSongs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                        <i class="fas fa-music"></i>
+                        <p>Belum ada data pemutaran</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            topSongs.forEach((song, index) => {
+                const songItem = document.createElement('div');
+                songItem.className = 'song-item';
+                songItem.innerHTML = `
+                    <div style="min-width: 30px; text-align: center; font-weight: bold; color: var(--primary);">
+                        ${index + 1}
+                    </div>
+                    <div class="song-cover-small" style="background-image: url('${song.cover}')"></div>
+                    <div class="song-info">
+                        <div class="song-title">${song.title}</div>
+                        <div class="song-album">${song.album} • ${song.releaseYear}</div>
+                    </div>
+                    <div class="song-plays">${song.playCount}× diputar</div>
+                `;
+                
+                songItem.addEventListener('click', () => {
+                    // Play song functionality
+                    alert(`Memutar: ${song.title}`);
+                });
+                
+                container.appendChild(songItem);
+            });
+        }
+        
+        function loadAllSongs(songs) {
+            const container = document.getElementById('allSongsContainer');
+            
+            if (!songs || songs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--gray); grid-column: 1/-1;">
+                        <i class="fas fa-music"></i>
+                        <p>Artist ini belum merilis lagu</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            songs.forEach(song => {
+                const songCard = document.createElement('div');
+                songCard.className = 'song-card';
+                songCard.innerHTML = `
+                    <div class="song-cover" style="background-image: url('${song.cover}')"></div>
+                    <div class="play-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <h4>${song.title}</h4>
+                    <p>${song.album} • ${song.releaseYear}</p>
+                `;
+                
+                songCard.addEventListener('click', () => {
+                    // Play song functionality
+                    alert(`Memutar: ${song.title}`);
+                });
+                
+                container.appendChild(songCard);
+            });
+        }
+        
+        function toggleFollowArtist(artistId) {
+            const isNowFollowing = toggleFollowArtist(artistId);
+            const followBtn = document.getElementById('followArtistBtn');
+            
+            if (isNowFollowing) {
+                followBtn.innerHTML = '<i class="fas fa-check"></i> Following';
+                followBtn.className = 'btn btn-primary';
+            } else {
+                followBtn.innerHTML = '<i class="fas fa-plus"></i> Follow';
+                followBtn.className = 'btn btn-outline';
+            }
+            
+            // Refresh profile to update follower count
+            const urlParams = new URLSearchParams(window.location.search);
+            const artistName = urlParams.get('artist');
+            setTimeout(() => {
+                loadArtistProfile(artistName);
+            }, 500);
+        }
+        
+        function logout() {
+            localStorage.removeItem('ndiidepzXmusic_loggedIn');
+            localStorage.removeItem('ndiidepzXmusic_currentUser');
+            localStorage.removeItem('ndiidepzXmusic_username');
+            localStorage.removeItem('ndiidepzXmusic_userEmail');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
