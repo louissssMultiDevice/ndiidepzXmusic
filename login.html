@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - ndiidepzXmusic</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root {
             --primary: #1DB954;
@@ -89,88 +91,60 @@
         .login-container {
             background-color: var(--secondary);
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
         
         .login-header {
-            text-align: center;
             margin-bottom: 30px;
         }
         
         .login-header h2 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 10px;
         }
         
         .login-header p {
             color: var(--gray);
+            font-size: 16px;
         }
         
-        .form-group {
-            margin-bottom: 20px;
+        .login-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        .login-image i {
+            font-size: 50px;
+            color: white;
+        }
+        
+        .features-list {
+            text-align: left;
+            margin: 25px 0;
+            padding: 0 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
             color: var(--gray);
         }
         
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid var(--dark-gray);
-            background-color: var(--dark);
-            color: var(--light);
-            font-size: 16px;
-        }
-        
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .forgot-password {
+        .feature-item i {
             color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-        
-        .btn {
-            padding: 12px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            width: 100%;
-            font-size: 16px;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--light);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--accent);
         }
         
         .divider {
@@ -200,25 +174,137 @@
             background-color: var(--dark-gray);
         }
         
-        .google-login {
+        /* Google Sign In Button */
+        .gsi-material-button {
+            background-color: #4285F4;
+            background-image: none;
+            border: none;
+            border-radius: 8px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            height: 50px;
+            letter-spacing: 0.25px;
+            outline: none;
+            overflow: hidden;
+            padding: 0 20px;
+            position: relative;
+            text-align: center;
+            transition: background-color .218s, box-shadow .218s;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 100%;
+            max-width: 400px;
+            min-width: min-content;
+            margin: 10px 0;
+        }
+        
+        .gsi-material-button .gsi-material-button-icon {
+            height: 20px;
+            margin-right: 12px;
+            min-width: 20px;
+            width: 20px;
+        }
+        
+        .gsi-material-button .gsi-material-button-content-wrapper {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            height: 100%;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+        }
+        
+        .gsi-material-button .gsi-material-button-contents {
+            flex-grow: 1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+        }
+        
+        .gsi-material-button:hover {
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+            background-color: #3367d6;
+        }
+        
+        .gsi-material-button:active {
+            background-color: #2b56b0;
+        }
+        
+        /* Custom Google Button Fallback */
+        .google-login-custom {
             background-color: #4285F4;
             color: white;
             width: 100%;
-            padding: 12px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
             font-weight: 600;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            margin: 10px 0;
         }
         
-        .google-login:hover {
+        .google-login-custom:hover {
             background-color: #3367d6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+        
+        .google-login-custom:active {
+            transform: translateY(0);
+        }
+        
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #4285F4;
+            font-size: 14px;
+        }
+        
+        .alternative-login {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
+        }
+        
+        .alternative-login p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .email-login-btn {
+            background-color: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .email-login-btn:hover {
+            background-color: var(--light);
+            color: var(--dark);
         }
         
         .register-link {
@@ -235,6 +321,32 @@
         
         .register-link a:hover {
             text-decoration: underline;
+        }
+        
+        .loading-spinner {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--dark-gray);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            display: none;
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
         }
         
         /* Footer */
@@ -266,6 +378,18 @@
             color: var(--gray);
             font-size: 14px;
         }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .login-header h2 {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -289,42 +413,76 @@
     <section class="login-section">
         <div class="container">
             <div class="login-container">
-                <div class="login-header">
-                    <h2>Masuk ke Akun Anda</h2>
-                    <p>Selamat datang kembali! Masuk untuk melanjutkan.</p>
+                <div class="login-image">
+                    <i class="fas fa-headphones"></i>
                 </div>
                 
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" placeholder="Masukkan email Anda" required>
+                <div class="login-header">
+                    <h2>Masuk ke ndiidepzXmusic</h2>
+                    <p>Dengarkan musik tanpa batas dengan akun Anda</p>
+                </div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Akses jutaan lagu dan podcast</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Masukkan password Anda" required>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Buat playlist personal Anda</span>
                     </div>
-                    
-                    <div class="form-options">
-                        <div class="remember-me">
-                            <input type="checkbox" id="rememberMe">
-                            <label for="rememberMe">Ingat saya</label>
-                        </div>
-                        <a href="#" class="forgot-password">Lupa password?</a>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Unggah musik Anda sendiri</span>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary">Masuk</button>
-                </form>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Ikuti artis dan teman</span>
+                    </div>
+                </div>
+                
+                <!-- Google Sign In Button -->
+                <div id="g_id_onload"
+                    data-client_id="732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleGoogleSignIn"
+                    data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="filled_blue"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left"
+                    data-width="400">
+                </div>
+                
+                <!-- Custom Google Button Fallback -->
+                <button class="google-login-custom" id="googleLoginCustom">
+                    <div class="google-icon">G</div>
+                    Continue with Google
+                </button>
+                
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Berhasil login! Mengarahkan...
+                </div>
                 
                 <div class="divider">atau</div>
                 
-                <button class="google-login" id="googleLogin">
-                    <i class="fab fa-google"></i>
-                    Masuk dengan Google
-                </button>
+                <div class="alternative-login">
+                    <p>Masuk dengan email</p>
+                    <button class="email-login-btn" onclick="window.location.href='email-login.html'">
+                        <i class="fas fa-envelope"></i> Lanjutkan dengan Email
+                    </button>
+                </div>
                 
                 <div class="register-link">
-                    <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+                    <p>Belum punya akun? <a href="/register">Daftar di sini</a></p>
                 </div>
             </div>
         </div>
@@ -347,34 +505,152 @@
         </div>
     </footer>
     
+    <script src="music-data.js"></script>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simulasi login
-            if (email && password) {
-                // Simpan status login di localStorage
-                localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
-                localStorage.setItem('ndiidepzXmusic_userEmail', email);
-                
-                // Redirect ke dashboard
-                window.location.href = 'docs.html';
-            } else {
-                alert('Harap isi semua field!');
+        // Configuration
+        const GOOGLE_CLIENT_ID = '732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com'; // Ganti dengan Client ID Anda
+        
+        // Initialize Google Sign In
+        function initializeGoogleSignIn() {
+            // Update the client ID
+            const googleSignInElement = document.querySelector('#g_id_onload');
+            if (googleSignInElement) {
+                googleSignInElement.setAttribute('data-client_id', GOOGLE_CLIENT_ID);
             }
+            
+            // Custom button fallback
+            document.getElementById('googleLoginCustom').addEventListener('click', function() {
+                triggerGoogleSignIn();
+            });
+        }
+        
+        // Trigger Google Sign In
+        function triggerGoogleSignIn() {
+            showLoading(true);
+            
+            // Try to use Google Identity Services
+            if (window.google && window.google.accounts) {
+                google.accounts.id.prompt();
+            } else {
+                // Fallback: Simulate Google login for demo
+                simulateGoogleLogin();
+            }
+        }
+        
+        // Handle Google Sign In Response
+        function handleGoogleSignIn(response) {
+            showLoading(true);
+            
+            // Decode the credential response
+            const responsePayload = parseJwt(response.credential);
+            
+            if (responsePayload) {
+                // Process the successful login
+                processGoogleLogin(responsePayload);
+            } else {
+                showLoading(false);
+                alert('Terjadi kesalahan saat login. Silakan coba lagi.');
+            }
+        }
+        
+        // Parse JWT token
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error('Error parsing JWT:', e);
+                return null;
+            }
+        }
+        
+        // Process Google Login
+        function processGoogleLogin(userData) {
+            console.log('Google User Data:', userData);
+            
+            // Create user account in our system
+            const userEmail = userData.email;
+            const userName = userData.name || userData.email.split('@')[0];
+            const userPicture = userData.picture || '';
+            
+            // Set user data in localStorage
+            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
+            localStorage.setItem('ndiidepzXmusic_userEmail', userEmail);
+            localStorage.setItem('ndiidepzXmusic_username', userName);
+            localStorage.setItem('ndiidepzXmusic_userPicture', userPicture);
+            localStorage.setItem('ndiidepzXmusic_loginMethod', 'google');
+            
+            // Initialize user in our music system
+            setCurrentUser(userEmail);
+            
+            // Show success message
+            showSuccessMessage();
+            
+            // Redirect to dashboard after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'docs.html';
+            }, 2000);
+        }
+        
+        
+        // Show/hide loading spinner
+        function showLoading(show) {
+            const spinner = document.getElementById('loadingSpinner');
+            const googleButton = document.querySelector('.g_id_signin');
+            const customButton = document.getElementById('googleLoginCustom');
+            
+            if (show) {
+                spinner.style.display = 'block';
+                if (googleButton) googleButton.style.opacity = '0.5';
+                if (customButton) customButton.style.opacity = '0.5';
+            } else {
+                spinner.style.display = 'none';
+                if (googleButton) googleButton.style.opacity = '1';
+                if (customButton) customButton.style.opacity = '1';
+            }
+        }
+        
+        // Show success message
+        function showSuccessMessage() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+        }
+        
+        // Check if user is already logged in
+        function checkExistingLogin() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = 'docs.html';
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkExistingLogin();
+            initializeGoogleSignIn();
+            
+            // Add some interactive effects
+            const loginContainer = document.querySelector('.login-container');
+            loginContainer.style.transform = 'translateY(20px)';
+            loginContainer.style.opacity = '0';
+            
+            setTimeout(() => {
+                loginContainer.style.transition = 'all 0.5s ease';
+                loginContainer.style.transform = 'translateY(0)';
+                loginContainer.style.opacity = '1';
+            }, 100);
         });
         
-        document.getElementById('googleLogin').addEventListener('click', function() {
-            // Simulasi login dengan Google
-            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
-            localStorage.setItem('ndiidepzXmusic_userEmail', 'user@gmail.com');
-            localStorage.setItem('ndiidepzXmusic_username', 'Google User');
-            
-            // Redirect ke dashboard
-            window.location.href = 'docs.html';
+        // Error handling for Google Sign In
+        window.addEventListener('google-auth-error', function(event) {
+            console.error('Google Auth Error:', event.detail);
+            showLoading(false);
+            alert('Terjadi kesalahan saat login dengan Google. Silakan coba lagi.');
         });
     </script>
 </body>
