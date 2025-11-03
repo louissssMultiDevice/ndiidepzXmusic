@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles sama seperti halaman lainnya, tambahkan yang khusus settings */
+        .settings-section {
+            padding: 40px 0;
+        }
+        
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .settings-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .settings-card h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid var(--dark-gray);
+            background-color: var(--dark);
+            color: var(--light);
+            font-size: 16px;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input {
+            width: auto;
+        }
+        
+        .settings-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .danger-zone {
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .danger-zone h3 {
+            color: #e74c3c;
+        }
+        
+        .danger-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .danger-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (sama seperti halaman lainnya) -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="docs.html">Beranda</a>
+                    <a href="explore.html">Jelajahi</a>
+                    <a href="playlists.html">Playlist</a>
+                    <a href="profile.html">Profil</a>
+                    <a href="stats.html">Statistik</a>
+                    <a href="settings.html" class="active">Pengaturan</a>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <span id="username">User</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Settings Section -->
+    <section class="settings-section">
+        <div class="container">
+            <div class="settings-container">
+                <h2>Pengaturan Akun</h2>
+                <p class="settings-description">Kelola preferensi dan pengaturan akun Anda</p>
+                
+                <form id="settingsForm">
+                    <!-- Profile Settings -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-user"></i> Profil</h3>
+                        
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" placeholder="Masukkan username Anda">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" placeholder="Ceritakan tentang diri Anda..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Language Settings -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-globe"></i> Bahasa & Region</h3>
+                        
+                        <div class="form-group">
+                            <label for="language">Bahasa</label>
+                            <select id="language">
+                                <option value="id">Bahasa Indonesia</option>
+                                <option value="en">English</option>
+                                <option value="ja">日本語</option>
+                                <option value="ko">한국어</option>
+                                <option value="zh">中文</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Privacy Settings -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-lock"></i> Privasi</h3>
+                        
+                        <div class="form-group">
+                            <label>Profil Publik</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="public-on" name="publicProfile" value="true">
+                                    <label for="public-on">Aktif</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="public-off" name="publicProfile" value="false">
+                                    <label for="public-off">Nonaktif</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Riwayat Dengarkan Publik</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="history-on" name="publicHistory" value="true">
+                                    <label for="history-on">Aktif</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="history-off" name="publicHistory" value="false">
+                                    <label for="history-off">Nonaktif</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notification Settings -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-bell"></i> Notifikasi</h3>
+                        
+                        <div class="form-group">
+                            <label>Email Notifikasi</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="email-on" name="emailNotifications" value="true">
+                                    <label for="email-on">Aktif</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="email-off" name="emailNotifications" value="false">
+                                    <label for="email-off">Nonaktif</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Notifikasi Artis Baru</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="artist-on" name="artistNotifications" value="true">
+                                    <label for="artist-on">Aktif</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="artist-off" name="artistNotifications" value="false">
+                                    <label for="artist-off">Nonaktif</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="settings-actions">
+                        <button type="button" class="btn btn-outline" onclick="resetSettings()">Reset</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+                
+                <!-- Danger Zone -->
+                <div class="danger-zone">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Zona Berbahaya</h3>
+                    <p>Hati-hati dengan aksi berikut. Tindakan ini tidak dapat dibatalkan.</p>
+                    
+                    <div style="margin-top: 15px;">
+                        <button class="danger-btn" onclick="clearHistory()">
+                            <i class="fas fa-trash"></i> Hapus Riwayat
+                        </button>
+                        <button class="danger-btn" onclick="deleteAccount()" style="margin-left: 10px;">
+                            <i class="fas fa-user-slash"></i> Hapus Akun
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="music-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data
+            const userData = getCurrentUserData();
+            if (userData) {
+                loadSettings(userData);
+            }
+            
+            // Setup form submission
+            document.getElementById('settingsForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveSettings();
+            });
+        });
+        
+        function loadSettings(userData) {
+            // Load profile
+            document.getElementById('username').value = userData.profile.username || '';
+            document.getElementById('bio').value = userData.profile.bio || '';
+            
+            // Load language
+            document.getElementById('language').value = userData.profile.language || 'id';
+            
+            // Load privacy settings
+            const publicProfile = userData.profile.publicProfile !== false;
+            const publicHistory = userData.profile.publicHistory !== false;
+            
+            document.getElementById(publicProfile ? 'public-on' : 'public-off').checked = true;
+            document.getElementById(publicHistory ? 'history-on' : 'history-off').checked = true;
+            
+            // Load notification settings
+            const emailNotifications = userData.profile.emailNotifications !== false;
+            const artistNotifications = userData.profile.artistNotifications !== false;
+            
+            document.getElementById(emailNotifications ? 'email-on' : 'email-off').checked = true;
+            document.getElementById(artistNotifications ? 'artist-on' : 'artist-off').checked = true;
+        }
+        
+        function saveSettings() {
+            const userData = getCurrentUserData();
+            
+            // Get form values
+            const updates = {
+                username: document.getElementById('username').value,
+                bio: document.getElementById('bio').value,
+                language: document.getElementById('language').value,
+                publicProfile: document.getElementById('public-on').checked,
+                publicHistory: document.getElementById('history-on').checked,
+                emailNotifications: document.getElementById('email-on').checked,
+                artistNotifications: document.getElementById('artist-on').checked
+            };
+            
+            // Update profile
+            updateUserProfile(updates);
+            
+            // Apply language immediately
+            applyLanguage(updates.language);
+            
+            alert('Pengaturan berhasil disimpan!');
+        }
+        
+        function resetSettings() {
+            if (confirm('Apakah Anda yakin ingin mengembalikan pengaturan ke default?')) {
+                const userData = getCurrentUserData();
+                const defaultSettings = {
+                    language: 'id',
+                    publicProfile: true,
+                    publicHistory: true,
+                    emailNotifications: true,
+                    artistNotifications: true
+                };
+                
+                updateUserProfile(defaultSettings);
+                loadSettings(getCurrentUserData());
+                applyLanguage('id');
+                
+                alert('Pengaturan telah direset ke default!');
+            }
+        }
+        
+        function applyLanguage(lang) {
+            // In a real app, this would update all text on the page
+            console.log('Language changed to:', lang);
+            // You would implement i18n here
+        }
+        
+        function clearHistory() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua riwayat? Tindakan ini tidak dapat dibatalkan.')) {
+                const userData = getCurrentUserData();
+                userData.history.playedSongs = [];
+                userData.history.searchedTerms = [];
+                userData.history.lastPlayed = null;
+                
+                // Reset statistics
+                userData.statistics = {
+                    totalPlayTime: 0,
+                    mostPlayedSongs: [],
+                    mostSearchedTerms: [],
+                    favoriteGenres: [],
+                    listeningHours: {}
+                };
+                
+                alert('Riwayat berhasil dihapus!');
+            }
+        }
+        
+        function deleteAccount() {
+            if (confirm('APAKAH ANDA YAKIN? Tindakan ini akan menghapus akun dan semua data Anda secara permanen!')) {
+                if (confirm('Semua data termasuk playlist, favorit, dan riwayat akan dihapus. Tindakan ini TIDAK DAPAT DIBATALKAN!')) {
+                    const email = localStorage.getItem('ndiidepzXmusic_currentUser');
+                    const users = JSON.parse(localStorage.getItem('ndiidepzXmusic_users') || '{}');
+                    
+                    delete users[email];
+                    localStorage.setItem('ndiidepzXmusic_users', JSON.stringify(users));
+                    
+                    // Logout user
+                    logout();
+                }
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('ndiidepzXmusic_loggedIn');
+            localStorage.removeItem('ndiidepzXmusic_currentUser');
+            localStorage.removeItem('ndiidepzXmusic_username');
+            localStorage.removeItem('ndiidepzXmusic_userEmail');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
