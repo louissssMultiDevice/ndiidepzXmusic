@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar - ndiidepzXmusic</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
+        /* Gunakan styles yang sama dari login.html */
         :root {
             --primary: #1DB954;
             --secondary: #191414;
@@ -89,9 +92,9 @@
         .register-container {
             background-color: var(--secondary);
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
@@ -102,79 +105,47 @@
         
         .register-header h2 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 10px;
         }
         
         .register-header p {
             color: var(--gray);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--gray);
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid var(--dark-gray);
-            background-color: var(--dark);
-            color: var(--light);
             font-size: 16px;
         }
         
-        .password-requirements {
-            font-size: 12px;
-            color: var(--gray);
-            margin-top: 5px;
-        }
-        
-        .terms {
+        .register-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .register-image i {
+            font-size: 50px;
+            color: white;
+        }
+        
+        .benefits-list {
+            text-align: left;
+            margin: 25px 0;
+            padding: 0 20px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
             gap: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            margin-bottom: 12px;
+            color: var(--gray);
         }
         
-        .terms input {
-            margin-top: 3px;
-        }
-        
-        .terms a {
+        .benefit-item i {
             color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .terms a:hover {
-            text-decoration: underline;
-        }
-        
-        .btn {
-            padding: 12px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            width: 100%;
-            font-size: 16px;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--light);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--accent);
         }
         
         .divider {
@@ -204,25 +175,97 @@
             background-color: var(--dark-gray);
         }
         
-        .google-register {
+        /* Google Sign In Button */
+        .gsi-material-button {
+            background-color: #4285F4;
+            background-image: none;
+            border: none;
+            border-radius: 8px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            height: 50px;
+            letter-spacing: 0.25px;
+            outline: none;
+            overflow: hidden;
+            padding: 0 20px;
+            position: relative;
+            text-align: center;
+            transition: background-color .218s, box-shadow .218s;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 100%;
+            max-width: 400px;
+            min-width: min-content;
+            margin: 10px 0;
+        }
+        
+        /* Custom Google Button */
+        .google-register-custom {
             background-color: #4285F4;
             color: white;
             width: 100%;
-            padding: 12px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
             font-weight: 600;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            margin: 10px 0;
         }
         
-        .google-register:hover {
+        .google-register-custom:hover {
             background-color: #3367d6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+        
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #4285F4;
+            font-size: 14px;
+        }
+        
+        .email-register {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
+        }
+        
+        .email-register p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .email-register-btn {
+            background-color: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .email-register-btn:hover {
+            background-color: var(--light);
+            color: var(--dark);
         }
         
         .login-link {
@@ -239,6 +282,32 @@
         
         .login-link a:hover {
             text-decoration: underline;
+        }
+        
+        .loading-spinner {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--dark-gray);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            display: none;
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
         }
         
         /* Footer */
@@ -270,6 +339,18 @@
             color: var(--gray);
             font-size: 14px;
         }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .register-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .register-header h2 {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -293,52 +374,76 @@
     <section class="register-section">
         <div class="container">
             <div class="register-container">
-                <div class="register-header">
-                    <h2>Buat Akun Baru</h2>
-                    <p>Daftar sekarang dan nikmati semua fitur ndiidepzXmusic.</p>
+                <div class="register-image">
+                    <i class="fas fa-user-plus"></i>
                 </div>
                 
-                <form id="registerForm">
-                    <div class="form-group">
-                        <label for="registerUsername">Username</label>
-                        <input type="text" id="registerUsername" placeholder="Pilih username unik" required>
+                <div class="register-header">
+                    <h2>Daftar ndiidepzXmusic</h2>
+                    <p>Bergabunglah dengan komunitas musik terbesar</p>
+                </div>
+                
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Dengarkan jutaan lagu gratis</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" placeholder="Masukkan email Anda" required>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Buat playlist tanpa batas</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" placeholder="Buat password yang kuat" required>
-                        <div class="password-requirements">
-                            Password harus minimal 8 karakter dan mengandung angka serta huruf.
-                        </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Unggah musik Anda sendiri</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="confirmPassword">Konfirmasi Password</label>
-                        <input type="password" id="confirmPassword" placeholder="Ketik ulang password Anda" required>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Terhubung dengan artis dan fans</span>
                     </div>
-                    
-                    <div class="terms">
-                        <input type="checkbox" id="agreeTerms" required>
-                        <label for="agreeTerms">Saya setuju dengan <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> ndiidepzXmusic</label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Daftar</button>
-                </form>
+                </div>
+                
+                <!-- Google Sign In Button -->
+                <div id="g_id_onload"
+                    data-client_id="732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com"
+                    data-context="signup"
+                    data-ux_mode="popup"
+                    data-callback="handleGoogleSignIn"
+                    data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="filled_blue"
+                    data-text="signup_with"
+                    data-size="large"
+                    data-logo_alignment="left"
+                    data-width="400">
+                </div>
+                
+                <!-- Custom Google Button Fallback -->
+                <button class="google-register-custom" id="googleRegisterCustom">
+                    <div class="google-icon">G</div>
+                    Continue with Google
+                </button>
+                
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Berhasil mendaftar! Mengarahkan...
+                </div>
                 
                 <div class="divider">atau</div>
                 
-                <button class="google-register" id="googleRegister">
-                    <i class="fab fa-google"></i>
-                    Daftar dengan Google
-                </button>
+                <div class="email-register">
+                    <p>Daftar dengan email</p>
+                    <button class="email-register-btn" onclick="window.location.href='email-register.html'">
+                        <i class="fas fa-envelope"></i> Daftar dengan Email
+                    </button>
+                </div>
                 
                 <div class="login-link">
-                    <p>Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
+                    <p>Sudah punya akun? <a href="/login">Masuk di sini</a></p>
                 </div>
             </div>
         </div>
@@ -361,43 +466,155 @@
         </div>
     </footer>
     
+    <script src="music-data.js"></script>
     <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('registerUsername').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            // Validasi
-            if (password !== confirmPassword) {
-                alert('Password dan konfirmasi password tidak cocok!');
-                return;
-            }
-            
-            if (password.length < 8) {
-                alert('Password harus minimal 8 karakter!');
-                return;
-            }
-            
-            // Simpan data user di localStorage
-            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
-            localStorage.setItem('ndiidepzXmusic_username', username);
-            localStorage.setItem('ndiidepzXmusic_userEmail', email);
-            
-            // Redirect ke dashboard
-            window.location.href = 'docs.html';
-        });
+        // Configuration
+        const GOOGLE_CLIENT_ID = '732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com';
         
-        document.getElementById('googleRegister').addEventListener('click', function() {
-            // Simulasi pendaftaran dengan Google
-            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
-            localStorage.setItem('ndiidepzXmusic_username', 'Google User');
-            localStorage.setItem('ndiidepzXmusic_userEmail', 'user@gmail.com');
+        // Initialize Google Sign In
+        function initializeGoogleSignIn() {
+            // Update the client ID
+            const googleSignInElement = document.querySelector('#g_id_onload');
+            if (googleSignInElement) {
+                googleSignInElement.setAttribute('data-client_id', GOOGLE_CLIENT_ID);
+            }
             
-            // Redirect ke dashboard
-            window.location.href = 'docs.html';
+            // Custom button fallback
+            document.getElementById('googleRegisterCustom').addEventListener('click', function() {
+                triggerGoogleSignIn();
+            });
+        }
+        
+        // Trigger Google Sign In
+        function triggerGoogleSignIn() {
+            showLoading(true);
+            
+            // Try to use Google Identity Services
+            if (window.google && window.google.accounts) {
+                google.accounts.id.prompt();
+            } else {
+                // Fallback: Simulate Google login for demo
+                simulateGoogleSignUp();
+            }
+        }
+        
+        // Handle Google Sign In Response
+        function handleGoogleSignIn(response) {
+            showLoading(true);
+            
+            // Decode the credential response
+            const responsePayload = parseJwt(response.credential);
+            
+            if (responsePayload) {
+                // Process the successful registration
+                processGoogleRegistration(responsePayload);
+            } else {
+                showLoading(false);
+                alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+            }
+        }
+        
+        // Parse JWT token
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error('Error parsing JWT:', e);
+                return null;
+            }
+        }
+        
+        // Process Google Registration
+        function processGoogleRegistration(userData) {
+            console.log('Google Registration Data:', userData);
+            
+            // Create user account in our system
+            const userEmail = userData.email;
+            const userName = userData.name || userData.email.split('@')[0];
+            const userPicture = userData.picture || '';
+            
+            // Check if user already exists
+            const existingUser = localStorage.getItem('ndiidepzXmusic_userEmail');
+            if (existingUser === userEmail) {
+                alert('Akun dengan email ini sudah terdaftar. Silakan login.');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Set user data in localStorage
+            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
+            localStorage.setItem('ndiidepzXmusic_userEmail', userEmail);
+            localStorage.setItem('ndiidepzXmusic_username', userName);
+            localStorage.setItem('ndiidepzXmusic_userPicture', userPicture);
+            localStorage.setItem('ndiidepzXmusic_loginMethod', 'google');
+            localStorage.setItem('ndiidepzXmusic_joinDate', new Date().toISOString());
+            
+            // Initialize user in our music system
+            setCurrentUser(userEmail);
+            
+            // Show welcome message
+            showSuccessMessage();
+            
+            // Redirect to dashboard after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'docs.html';
+            }, 2000);
+        }
+        
+        
+        
+        // Show/hide loading spinner
+        function showLoading(show) {
+            const spinner = document.getElementById('loadingSpinner');
+            const googleButton = document.querySelector('.g_id_signin');
+            const customButton = document.getElementById('googleRegisterCustom');
+            
+            if (show) {
+                spinner.style.display = 'block';
+                if (googleButton) googleButton.style.opacity = '0.5';
+                if (customButton) customButton.style.opacity = '0.5';
+            } else {
+                spinner.style.display = 'none';
+                if (googleButton) googleButton.style.opacity = '1';
+                if (customButton) customButton.style.opacity = '1';
+            }
+        }
+        
+        // Show success message
+        function showSuccessMessage() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+        }
+        
+        // Check if user is already logged in
+        function checkExistingLogin() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = '/docs';
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkExistingLogin();
+            initializeGoogleSignIn();
+            
+            // Add some interactive effects
+            const registerContainer = document.querySelector('.register-container');
+            registerContainer.style.transform = 'translateY(20px)';
+            registerContainer.style.opacity = '0';
+            
+            setTimeout(() => {
+                registerContainer.style.transition = 'all 0.5s ease';
+                registerContainer.style.transform = 'translateY(0)';
+                registerContainer.style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
