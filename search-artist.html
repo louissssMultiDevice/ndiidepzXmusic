@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Artist - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Gunakan styles dari search-users.html dan tambahkan: */
+        
+        .artist-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .artist-card:hover {
+            transform: translateY(-5px);
+            background-color: #282828;
+        }
+        
+        .artist-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+        
+        .artist-info {
+            flex: 1;
+        }
+        
+        .artist-info h3 {
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        
+        .artist-info p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .artist-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .follow-artist-btn {
+            background: transparent;
+            border: 1px solid var(--light);
+            color: var(--light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .follow-artist-btn:hover {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .follow-artist-btn.following {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (sama seperti search-users.html) -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="docs.html">Beranda</a>
+                    <a href="explore.html">Jelajahi</a>
+                    <a href="search-users.html">Cari User</a>
+                    <a href="search-artists.html" class="active">Cari Artist</a>
+                    <a href="profile.html">Profil</a>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <span id="username">User</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-header">
+                <h2>Cari Artist</h2>
+                <p>Temukan dan ikuti artist favorit Anda</p>
+            </div>
+            
+            <div class="search-tabs">
+                <button class="search-tab" onclick="showTab('users')">
+                    <i class="fas fa-users"></i> User
+                </button>
+                <button class="search-tab active" onclick="showTab('artists')">
+                    <i class="fas fa-microphone"></i> Artist
+                </button>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari artist berdasarkan nama atau lagu...">
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="results-grid" id="resultsContainer">
+                <!-- Results will be loaded here -->
+                <div class="no-results" id="noResults">
+                    <i class="fas fa-search"></i>
+                    <h3>Belum ada pencarian</h3>
+                    <p>Gunakan kotak pencarian di atas untuk menemukan artist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="music-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data
+            const userData = getCurrentUserData();
+            if (userData) {
+                document.getElementById('username').textContent = userData.profile.username;
+                document.getElementById('userAvatar').textContent = userData.profile.username.charAt(0).toUpperCase();
+            }
+            
+            // Setup search functionality
+            document.getElementById('searchButton').addEventListener('click', performSearch);
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+        
+        function showTab(tabName) {
+            if (tabName === 'users') {
+                window.location.href = 'search-users.html';
+            }
+        }
+        
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
+            
+            const results = searchArtists(query);
+            displayResults(results);
+        }
+        
+        function displayResults(artists) {
+            const container = document.getElementById('resultsContainer');
+            const noResults = document.getElementById('noResults');
+            
+            if (artists.length === 0) {
+                noResults.style.display = 'block';
+                container.innerHTML = '';
+                container.appendChild(noResults);
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            container.innerHTML = '';
+            
+            artists.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.className = 'artist-card';
+                artistCard.innerHTML = `
+                    <div class="artist-avatar" style="background-image: url('${artist.profilePic}')"></div>
+                    <div class="artist-info">
+                        <h3>${artist.name}</h3>
+                        <p>${artist.bio}</p>
+                        <div class="artist-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>${artist.followerCount} Pengikut</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-music"></i>
+                                <span>${artist.songCount} Lagu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="follow-artist-btn" onclick="followArtist(${artist.id}, this)">
+                        <i class="fas fa-plus"></i> Follow
+                    </button>
+                `;
+                
+                artistCard.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('follow-artist-btn')) {
+                        window.location.href = `artist-profile.html?artist=${encodeURIComponent(artist.name)}`;
+                    }
+                });
+                
+                container.appendChild(artistCard);
+            });
+        }
+        
+        function followArtist(artistId, button) {
+            const isNowFollowing = toggleFollowArtist(artistId);
+            
+            if (isNowFollowing) {
+                button.innerHTML = '<i class="fas fa-check"></i> Following';
+                button.classList.add('following');
+            } else {
+                button.innerHTML = '<i class="fas fa-plus"></i> Follow';
+                button.classList.remove('following');
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('ndiidepzXmusic_loggedIn');
+            localStorage.removeItem('ndiidepzXmusic_currentUser');
+            localStorage.removeItem('ndiidepzXmusic_username');
+            localStorage.removeItem('ndiidepzXmusic_userEmail');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
