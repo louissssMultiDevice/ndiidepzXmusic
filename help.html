@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusat Bantuan - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Gunakan styles yang sama dari docs.html dan tambahkan: */
+        
+        .help-section {
+            padding: 40px 0;
+        }
+        
+        .help-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .help-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .help-header p {
+            color: var(--gray);
+            font-size: 18px;
+        }
+        
+        .help-search {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .search-box {
+            display: flex;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 30px 0 0 30px;
+            border: none;
+            background-color: var(--secondary);
+            color: var(--light);
+            font-size: 16px;
+        }
+        
+        .search-box button {
+            padding: 0 25px;
+            border-radius: 0 30px 30px 0;
+            border: none;
+            background-color: var(--primary);
+            color: var(--light);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .category-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            background-color: #282828;
+        }
+        
+        .category-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .category-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .category-card p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .faq-section {
+            background-color: var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--dark-gray);
+            padding: 20px 0;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-question h4 {
+            font-size: 18px;
+            color: var(--light);
+        }
+        
+        .faq-answer {
+            margin-top: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        .contact-support {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .contact-support h3 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .contact-support p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (sama seperti docs.html) -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="docs.html">Beranda</a>
+                    <a href="explore.html">Jelajahi</a>
+                    <a href="help.html" class="active">Bantuan</a>
+                    <a href="request.html">Request</a>
+                    <a href="profile.html">Profil</a>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <span id="username">User</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Help Section -->
+    <section class="help-section">
+        <div class="container">
+            <div class="help-header">
+                <h2>Pusat Bantuan</h2>
+                <p>Temukan jawaban untuk pertanyaan umum dan pelajari fitur-fitur ndiidepzXmusic</p>
+            </div>
+            
+            <div class="help-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Cari bantuan... (contoh: 'cara upload lagu')">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <!-- Help Categories -->
+            <div class="help-categories">
+                <div class="category-card" onclick="showCategory('getting-started')">
+                    <div class="category-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Memulai</h3>
+                    <p>Panduan untuk pengguna baru dalam menggunakan platform</p>
+                    <a href="#" class="feature-link">Pelajari <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card" onclick="showCategory('music-features')">
+                    <div class="category-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Fitur Musik</h3>
+                    <p>Cara menggunakan player, membuat playlist, dan explore musik</p>
+                    <a href="#" class="feature-link">Pelajari <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card" onclick="showCategory('social-features')">
+                    <div class="category-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Fitur Social</h3>
+                    <p>Cara follow user, artist, dan berinteraksi dengan komunitas</p>
+                    <a href="#" class="feature-link">Pelajari <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card" onclick="showCategory('upload')">
+                    <div class="category-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3>Upload Lagu</h3>
+                    <p>Panduan lengkap upload lagu dan management konten</p>
+                    <a href="#" class="feature-link">Pelajari <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card" onclick="showCategory('account')">
+                    <div class="category-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>Akun & Settings</h3>
+                    <p>Management profil, pengaturan, dan privasi</p>
+                    <a href="#" class="feature-link">Pelajari <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="category-card" onclick="showCategory('troubleshooting')">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Pemecahan Masalah</h3>
+                    <p>Solusi untuk masalah umum yang mungkin dialami</p>
+                    <a href="#" class="feature-link">Pelajari <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3 style="margin-bottom: 25px; color: var(--primary);">Pertanyaan Umum</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Bagaimana cara upload lagu saya sendiri?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Untuk upload lagu:</p>
+                        <ol>
+                            <li>Pergi ke halaman <strong>Upload</strong> dari menu navigasi</li>
+                            <li>Klik tombol <strong>"Unggah Sekarang"</strong></li>
+                            <li>Isi informasi lagu (judul, artist, genre, dll)</li>
+                            <li>Upload file audio (format: MP3, WAV, FLAC)</li>
+                            <li>Bayar biaya upload Rp 1.000 per lagu</li>
+                            <li>Tunggu proses verifikasi (24-48 jam)</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Apakah bisa membuat album gratis?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ya! Anda bisa membuat album secara gratis. Yang perlu dibayar hanya lagu-lagu yang diupload ke album tersebut (Rp 1.000 per lagu).</p>
+                        <p>Caranya:</p>
+                        <ul>
+                            <li>Pergi ke halaman <strong>Album</strong></li>
+                            <li>Klik <strong>"Buat Album"</strong></li>
+                            <li>Isi informasi album (nama, deskripsi, dll)</li>
+                            <li>Tambahkan lagu yang sudah diupload</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Bagaimana cara follow user atau artist?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Untuk follow user:</p>
+                        <ol>
+                            <li>Pergi ke <strong>"Cari User"</strong> dari menu</li>
+                            <li>Cari username yang ingin di-follow</li>
+                            <li>Klik tombol <strong>"Follow"</strong> di kartu user</li>
+                        </ol>
+                        <p>Untuk follow artist:</p>
+                        <ol>
+                            <li>Pergi ke <strong>"Cari Artist"</strong> dari menu</li>
+                            <li>Cari artist yang ingin di-follow</li>
+                            <li>Klik tombol <strong>"Follow"</strong> di profil artist</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Bagaimana melihat statistik listening saya?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Statistik lengkap bisa dilihat di halaman <strong>"Statistik"</strong> yang berisi:</p>
+                        <ul>
+                            <li>Total waktu mendengarkan</li>
+                            <li>Lagu paling sering diputar</li>
+                            <li>Genre favorit</li>
+                            <li>Pencarian terbanyak</li>
+                            <li>Jam listening habits</li>
+                            <li>Aktivitas terbaru</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Bagaimana cara memberikan kritik atau request fitur?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Anda bisa memberikan masukan melalui:</p>
+                        <ol>
+                            <li>Pergi ke halaman <strong>"Request"</strong></li>
+                            <li>Pilih jenis request (Fitur Baru, Bug, dll)</li>
+                            <li>Isi form dengan detail</li>
+                            <li>Kirim - akan langsung terhubung ke WhatsApp developer</li>
+                        </ol>
+                        <p><strong>Note:</strong> Semua request akan dibaca dan dipertimbangkan oleh developer!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Support -->
+            <div class="contact-support">
+                <h3>Butuh Bantuan Lebih Lanjut?</h3>
+                <p>Tim support kami siap membantu Anda 24/7 melalui WhatsApp</p>
+                <a href="request.html" class="btn" style="background: white; color: var(--primary);">
+                    <i class="fas fa-headset"></i> Hubungi Support
+                </a>
+                
+                <div class="quick-links">
+                    <a href="request.html" class="action-btn" style="background: rgba(255,255,255,0.2); color: white;">
+                        <i class="fas fa-bug"></i> Laporkan Bug
+                    </a>
+                    <a href="request.html" class="action-btn" style="background: rgba(255,255,255,0.2); color: white;">
+                        <i class="fas fa-lightbulb"></i> Request Fitur
+                    </a>
+                    <a href="docs.html" class="action-btn" style="background: rgba(255,255,255,0.2); color: white;">
+                        <i class="fas fa-home"></i> Kembali ke Beranda
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data
+            const userData = JSON.parse(localStorage.getItem('ndiidepzXmusic_users'))[localStorage.getItem('ndiidepzXmusic_currentUser')];
+            if (userData) {
+                document.getElementById('username').textContent = userData.profile.username;
+                document.getElementById('userAvatar').textContent = userData.profile.username.charAt(0).toUpperCase();
+            }
+        });
+        
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            answer.classList.toggle('show');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+        
+        function showCategory(category) {
+            // Scroll to category section (bisa dikembangkan lebih lanjut)
+            alert(`Membuka kategori: ${category}`);
+        }
+        
+        function logout() {
+            localStorage.removeItem('ndiidepzXmusic_loggedIn');
+            localStorage.removeItem('ndiidepzXmusic_currentUser');
+            localStorage.removeItem('ndiidepzXmusic_username');
+            localStorage.removeItem('ndiidepzXmusic_userEmail');
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize FAQ
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to all FAQ questions
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    toggleFAQ(this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
