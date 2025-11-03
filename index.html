@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ndiidepzXmusic - Platform Musik Terlengkap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1DB954;
+            --secondary: #191414;
+            --accent: #1ed760;
+            --light: #ffffff;
+            --dark: #121212;
+            --gray: #b3b3b3;
+            --dark-gray: #535353;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        /* Music Player */
+        .music-player {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .song-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .song-cover {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            background-color: var(--dark-gray);
+        }
+        
+        .song-details h4 {
+            font-size: 16px;
+        }
+        
+        .song-details p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .control-buttons button {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: var(--dark-gray);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 30%;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+        
+        .upload-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--dark);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .upload-container h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .upload-container p {
+            margin-bottom: 30px;
+            color: var(--gray);
+        }
+        
+        .price-tag {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .supported-by {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .supported-by span {
+            background-color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--dark-gray);
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--gray);
+            position: relative;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 45%;
+            height: 1px;
+            background-color: var(--dark-gray);
+        }
+        
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 45%;
+            height: 1px;
+            background-color: var(--dark-gray);
+        }
+        
+        .google-login {
+            background-color: #4285F4;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            padding: 40px 0;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 30px 0 0 30px;
+            border: none;
+            background-color: var(--secondary);
+            color: var(--light);
+        }
+        
+        .search-bar button {
+            padding: 0 20px;
+            border-radius: 0 30px 30px 0;
+            border: none;
+            background-color: var(--primary);
+            color: var(--light);
+            cursor: pointer;
+        }
+        
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .song-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .song-card:hover {
+            transform: translateY(-5px);
+            background-color: #282828;
+        }
+        
+        .song-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .song-card h4 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .song-card p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Upload Form Styles */
+        .upload-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--secondary);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .upload-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .upload-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+        }
+        
+        .upload-form input, .upload-form textarea, .upload-form select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--dark-gray);
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .upload-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .file-upload {
+            border: 2px dashed var(--dark-gray);
+            padding: 30px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .file-upload i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        /* Error Page Styles */
+        .error-container {
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .error-container h1 {
+            font-size: 100px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .error-container h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .error-container p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="active">Beranda</a>
+                    <a href="docs.html">Dashboard</a>
+                    <a href="upload.html">Upload</a>
+                    <a href="#">Album</a>
+                    <a href="#">Playlist</a>
+                </div>
+                
+                <div class="user-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='login.html'">Masuk</button>
+                    <button class="btn btn-primary" onclick="window.location.href='register.html'">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Dengarkan Musik Tanpa Batas</h2>
+            <p>Jutaan lagu, podcast, dan konten audio lainnya. Unggah musik Anda sendiri dan bagikan dengan dunia.</p>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'">Mulai Dengarkan</button>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Fitur Unggulan</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3>Login dengan Google</h3>
+                    <p>Masuk dengan mudah menggunakan akun Google Anda dan atur username pilihan.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Cari Lagu Spotify</h3>
+                    <p>Temukan jutaan lagu dari Spotify dengan pencarian yang cepat dan akurat.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3>Unggah Lagu Sendiri</h3>
+                    <p>Bagikan karya musik Anda dengan komunitas. Hanya Rp 1.000 per lagu.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Lihat Lirik Lagu</h3>
+                    <p>Baca lirik lagu favorit Anda sambil mendengarkan musik.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <h3>Cari Berdasarkan Lirik</h3>
+                    <p>Temukan lagu dengan mencari kata-kata dalam liriknya.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <h3>Buat Playlist</h3>
+                    <p>Kumpulkan lagu-lagu favorit Anda dalam playlist pribadi.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-compact-disc"></i>
+                    </div>
+                    <h3>Buat Album</h3>
+                    <p>Unggah album musik Anda secara gratis (hanya bayar per lagu).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Upload Section -->
+    <section class="upload-section">
+        <div class="container">
+            <div class="upload-container">
+                <h3>Unggah Musik Anda</h3>
+                <p>Bagikan karya musik Anda dengan dunia. Hanya Rp 1.000 per lagu.</p>
+                
+                <div class="price-tag">Rp 1.000 / Lagu</div>
+                
+                <button class="btn btn-primary" onclick="window.location.href='upload.html'">Unggah Sekarang</button>
+                
+                <p style="margin-top: 20px; font-size: 14px;">
+                    Buat album gratis! Hanya bayar untuk setiap lagu yang diunggah.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ndiidepzXmusic</h3>
+                    <p>Platform musik terbaik untuk mendengarkan dan berbagi karya musik.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Tautan Cepat</h3>
+                    <a href="index.html">Beranda</a>
+                    <a href="docs.html">Dashboard</a>
+                    <a href="upload.html">Upload</a>
+                    <a href="#">Album</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Bantuan</h3>
+                    <a href="#">Pusat Bantuan</a>
+                    <a href="#">Kontak</a>
+                    <a href="#">Kebijakan Privasi</a>
+                    <a href="#">Syarat & Ketentuan</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Developer</h3>
+                    <p>ndiidepzX</p>
+                </div>
+            </div>
+            
+            <div class="supported-by">
+                <span>Didukung oleh:</span>
+                <span>7F</span>
+                <span>FikaStore</span>
+                <span>HanamiCloud</span>
+                <span>NdiiClouD</span>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 ndiidepzXmusic. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Simulasi navigasi antar halaman
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek jika user sudah login (dari localStorage)
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            
+            if (isLoggedIn) {
+                document.querySelector('.user-actions').innerHTML = `
+                    <span>Halo, ${localStorage.getItem('ndiidepzXmusic_username') || 'User'}</span>
+                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
+                `;
+            }
+        });
+        
+        function logout() {
+            localStorage.removeItem('ndiidepzXmusic_loggedIn');
+            localStorage.removeItem('ndiidepzXmusic_username');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

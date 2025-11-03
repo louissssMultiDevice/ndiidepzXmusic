@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1DB954;
+            --secondary: #191414;
+            --accent: #1ed760;
+            --light: #ffffff;
+            --dark: #121212;
+            --gray: #b3b3b3;
+            --dark-gray: #535353;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .back-home {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .back-home:hover {
+            color: var(--primary);
+        }
+        
+        /* Register Section */
+        .register-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+        }
+        
+        .register-container {
+            background-color: var(--secondary);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .register-header h2 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .register-header p {
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid var(--dark-gray);
+            background-color: var(--dark);
+            color: var(--light);
+            font-size: 16px;
+        }
+        
+        .password-requirements {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .terms input {
+            margin-top: 3px;
+        }
+        
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            color: var(--gray);
+            position: relative;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 45%;
+            height: 1px;
+            background-color: var(--dark-gray);
+        }
+        
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 45%;
+            height: 1px;
+            background-color: var(--dark-gray);
+        }
+        
+        .google-register {
+            background-color: #4285F4;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .google-register:hover {
+            background-color: #3367d6;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+        }
+        
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 30px 0 20px;
+            text-align: center;
+        }
+        
+        .supported-by {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .supported-by span {
+            background-color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
+            color: var(--gray);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Register Section -->
+    <section class="register-section">
+        <div class="container">
+            <div class="register-container">
+                <div class="register-header">
+                    <h2>Buat Akun Baru</h2>
+                    <p>Daftar sekarang dan nikmati semua fitur ndiidepzXmusic.</p>
+                </div>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerUsername">Username</label>
+                        <input type="text" id="registerUsername" placeholder="Pilih username unik" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="Masukkan email Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" placeholder="Buat password yang kuat" required>
+                        <div class="password-requirements">
+                            Password harus minimal 8 karakter dan mengandung angka serta huruf.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Konfirmasi Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Ketik ulang password Anda" required>
+                    </div>
+                    
+                    <div class="terms">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">Saya setuju dengan <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> ndiidepzXmusic</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Daftar</button>
+                </form>
+                
+                <div class="divider">atau</div>
+                
+                <button class="google-register" id="googleRegister">
+                    <i class="fab fa-google"></i>
+                    Daftar dengan Google
+                </button>
+                
+                <div class="login-link">
+                    <p>Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="supported-by">
+                <span>Didukung oleh:</span>
+                <span>7F</span>
+                <span>FikaStore</span>
+                <span>HanamiCloud</span>
+                <span>NdiiClouD</span>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 ndiidepzXmusic. All rights reserved. | Dev: ndiidepzX
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validasi
+            if (password !== confirmPassword) {
+                alert('Password dan konfirmasi password tidak cocok!');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Password harus minimal 8 karakter!');
+                return;
+            }
+            
+            // Simpan data user di localStorage
+            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
+            localStorage.setItem('ndiidepzXmusic_username', username);
+            localStorage.setItem('ndiidepzXmusic_userEmail', email);
+            
+            // Redirect ke dashboard
+            window.location.href = 'docs.html';
+        });
+        
+        document.getElementById('googleRegister').addEventListener('click', function() {
+            // Simulasi pendaftaran dengan Google
+            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
+            localStorage.setItem('ndiidepzXmusic_username', 'Google User');
+            localStorage.setItem('ndiidepzXmusic_userEmail', 'user@gmail.com');
+            
+            // Redirect ke dashboard
+            window.location.href = 'docs.html';
+        });
+    </script>
+</body>
+</html>

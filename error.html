@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Tidak Ditemukan - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1DB954;
+            --secondary: #191414;
+            --accent: #1ed760;
+            --light: #ffffff;
+            --dark: #121212;
+            --gray: #b3b3b3;
+            --dark-gray: #535353;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        /* Error Section */
+        .error-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .error-container {
+            max-width: 600px;
+        }
+        
+        .error-icon {
+            font-size: 100px;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        
+        .error-container h1 {
+            font-size: 100px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+        
+        .error-container h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .error-container p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+            margin-left: 10px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 30px 0 20px;
+            text-align: center;
+        }
+        
+        .supported-by {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .supported-by span {
+            background-color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
+            color: var(--gray);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Error Section -->
+    <section class="error-section">
+        <div class="container">
+            <div class="error-container">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h1>404</h1>
+                <h2>Halaman Tidak Ditemukan</h2>
+                <p>Maaf, halaman yang Anda cari tidak dapat ditemukan. Mungkin telah dipindahkan, dihapus, atau Anda salah mengetik URL.</p>
+                
+                <div class="action-buttons">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Kembali ke Beranda
+                    </a>
+                    <a href="docs.html" class="btn btn-outline">
+                        <i class="fas fa-compass"></i> Jelajahi Musik
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="supported-by">
+                <span>Didukung oleh:</span>
+                <span>7F</span>
+                <span>FikaStore</span>
+                <span>HanamiCloud</span>
+                <span>NdiiClouD</span>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 ndiidepzXmusic. All rights reserved. | Dev: ndiidepzX
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
