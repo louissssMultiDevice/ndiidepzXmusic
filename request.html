@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request & Kritik - ndiidepzXmusic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1DB954;
+            --secondary: #191414;
+            --accent: #1ed760;
+            --light: #ffffff;
+            --dark: #121212;
+            --gray: #b3b3b3;
+            --dark-gray: #535353;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* Request Section */
+        .request-section {
+            padding: 40px 0;
+        }
+        
+        .request-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .request-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .request-header p {
+            color: var(--gray);
+            font-size: 18px;
+        }
+        
+        .request-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .request-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .request-form-container {
+            background-color: var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .request-info-container {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--dark-gray);
+            background-color: var(--dark);
+            color: var(--light);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .request-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .request-type-btn {
+            background: var(--dark);
+            border: 2px solid var(--dark-gray);
+            color: var(--light);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .request-type-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        .request-type-btn.active {
+            border-color: var(--primary);
+            background-color: rgba(29, 185, 84, 0.1);
+        }
+        
+        .request-type-btn i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .priority-high {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .priority-medium {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .priority-low {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .info-content h3 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .info-content p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .whatsapp-contact {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .whatsapp-contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: #25D366;
+            border-radius: 25px;
+            transition: transform 0.3s;
+        }
+        
+        .whatsapp-contact a:hover {
+            transform: translateY(-2px);
+        }
+        
+        .loading-spinner {
+            display: none;
+            margin: 10px auto;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--dark-gray);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            display: none;
+            background: rgba(39, 174, 96, 0.2);
+            border: 1px solid #27ae60;
+            color: #27ae60;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .error-message {
+            display: none;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .request-history {
+            margin-top: 40px;
+        }
+        
+        .history-item {
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .history-type {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .history-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .history-message {
+            color: var(--light);
+            margin-bottom: 10px;
+        }
+        
+        .history-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .status-completed {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .no-history {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+        
+        .no-history i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 50px 0 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .supported-by {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .supported-by span {
+            background-color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
+            color: var(--gray);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ndiidepzX<span>music</span></h1>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="docs.html">Beranda</a>
+                    <a href="explore.html">Jelajahi</a>
+                    <a href="request.html" class="active">Request</a>
+                    <a href="profile.html">Profil</a>
+                    <a href="settings.html">Pengaturan</a>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <span id="username">User</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Request Section -->
+    <section class="request-section">
+        <div class="container">
+            <div class="request-header">
+                <h2>Request & Kritik</h2>
+                <p>Bantu kami meningkatkan pengalaman musik Anda dengan masukan berharga</p>
+            </div>
+            
+            <div class="request-container">
+                <!-- Request Form -->
+                <div class="request-form-container">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Kirim Request</h3>
+                    
+                    <form id="requestForm">
+                        <div class="form-group">
+                            <label for="requestType">Jenis Request</label>
+                            <div class="request-type-grid">
+                                <div class="request-type-btn active" data-type="feature">
+                                    <i class="fas fa-plus-circle"></i>
+                                    Fitur Baru
+                                </div>
+                                <div class="request-type-btn" data-type="bug">
+                                    <i class="fas fa-bug"></i>
+                                    Laporkan Bug
+                                </div>
+                                <div class="request-type-btn" data-type="improvement">
+                                    <i class="fas fa-wrench"></i>
+                                    Perbaikan
+                                </div>
+                                <div class="request-type-btn" data-type="content">
+                                    <i class="fas fa-music"></i>
+                                    Request Lagu
+                                </div>
+                            </div>
+                            <input type="hidden" id="requestType" name="requestType" value="feature" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestPriority">Prioritas</label>
+                            <select id="requestPriority" name="requestPriority" required>
+                                <option value="low">Rendah</option>
+                                <option value="medium" selected>Sedang</option>
+                                <option value="high">Tinggi</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestTitle">Judul Request</label>
+                            <input type="text" id="requestTitle" name="requestTitle" placeholder="Contoh: Tambah fitur download lagu" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestMessage">Detail Request/Kritik</label>
+                            <textarea id="requestMessage" name="requestMessage" placeholder="Jelaskan secara detail apa yang Anda inginkan atau kritik yang ingin disampaikan..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userContact">Kontak (Opsional)</label>
+                            <input type="text" id="userContact" name="userContact" placeholder="Email atau WhatsApp untuk follow up">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Kirim Request
+                        </button>
+                        
+                        <div class="loading-spinner" id="loadingSpinner"></div>
+                        
+                        <div class="success-message" id="successMessage">
+                            <i class="fas fa-check-circle"></i> Request berhasil dikirim! Akan diarahkan ke WhatsApp...
+                        </div>
+                        
+                        <div class="error-message" id="errorMessage">
+                            <i class="fas fa-exclamation-circle"></i> Terjadi kesalahan. Silakan coba lagi.
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Request Info -->
+                <div class="request-info-container">
+                    <h3 style="margin-bottom: 25px;">Kenapa Request Penting?</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Ide Inovasi</h3>
+                            <p>Request Anda membantu kami menciptakan fitur-fitur baru yang sesuai kebutuhan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Perbaikan Bug</h3>
+                            <p>Laporkan masalah yang Anda temukan untuk pengalaman yang lebih smooth</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Kritik Membangun</h3>
+                            <p>Kritik Anda sangat berharga untuk meningkatkan kualitas platform</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Request Konten</h3>
+                            <p>Minta lagu atau artist favorit yang belum tersedia di platform</p>
+                        </div>
+                    </div>
+                    
+                    <div class="whatsapp-contact">
+                        <h4>Butuh Bantuan Cepat?</h4>
+                        <p style="margin-bottom: 15px; opacity: 0.9;">Hubungi developer langsung via WhatsApp</p>
+                        <a href="#" id="whatsappDirectLink">
+                            <i class="fab fa-whatsapp"></i>
+                            Chat via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Request History -->
+            <div class="request-history">
+                <h3 style="margin-bottom: 20px; color: var(--primary);">Riwayat Request Anda</h3>
+                <div id="requestHistory">
+                    <!-- Request history will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ndiidepzXmusic</h3>
+                    <p>Platform musik terbaik untuk mendengarkan dan berbagi karya musik.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Tautan Cepat</h3>
+                    <a href="/docs">Beranda</a>
+                    <a href="/explore">Jelajahi</a>
+                    <a href="/request">Request</a>
+                    <a href="/profile">Profil</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Bantuan</h3>
+                    <a href="/request">Kirim Request</a>
+                    <a href="/panduan">Pusat Bantuan</a>
+                    <a href="/kontak">Kontak</a>
+                    <a href="/FaQ">Kebijakan Privasi</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Developer</h3>
+                    <p>ndiidepzX</p>
+                </div>
+            </div>
+            
+            <div class="supported-by">
+                <span>Didukung oleh:</span>
+                <span>7F</span>
+                <span>FikaStore</span>
+                <span>HanamiCloud</span>
+                <span>NdiiClouD</span>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 ndiidepzXmusic. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script src="music-data.js"></script>
+    <script>
+        // WhatsApp Configuration - GANTI DENGAN NOMOR ANDA
+        const WHATSAPP_NUMBER = '6285800650661'; // Format: 6281234567890 (tanpa +)
+        
+        // Request types with priorities
+        const requestTypes = {
+            feature: { name: 'Fitur Baru', priority: 'medium' },
+            bug: { name: 'Laporkan Bug', priority: 'high' },
+            improvement: { name: 'Perbaikan', priority: 'medium' },
+            content: { name: 'Request Lagu', priority: 'low' }
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+            
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data
+            const userData = getCurrentUserData();
+            if (userData) {
+                document.getElementById('username').textContent = userData.profile.username;
+                document.getElementById('userAvatar').textContent = userData.profile.username.charAt(0).toUpperCase();
+            }
+            
+            initializeRequestSystem();
+            loadRequestHistory();
+        });
+        
+        function initializeRequestSystem() {
+            // Setup request type buttons
+            const typeButtons = document.querySelectorAll('.request-type-btn');
+            typeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    typeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const type = this.getAttribute('data-type');
+                    document.getElementById('requestType').value = type;
+                    
+                    // Auto-set priority based on type
+                    const priority = requestTypes[type].priority;
+                    document.getElementById('requestPriority').value = priority;
+                });
+            });
+            
+            // Setup form submission
+            document.getElementById('requestForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitRequest();
+            });
+            
+            // Setup WhatsApp direct link
+            const whatsappLink = document.getElementById('whatsappDirectLink');
+            const userData = getCurrentUserData();
+            const username = userData ? userData.profile.username : 'User';
+            
+            const directMessage = `Halo! Saya ${username} dari ndiidepzXmusic. Saya butuh bantuan.`;
+            whatsappLink.href = generateWhatsAppLink(directMessage);
+        }
+        
+        function submitRequest() {
+            const form = document.getElementById('requestForm');
+            const formData = new FormData(form);
+            
+            const requestData = {
+                type: formData.get('requestType'),
+                priority: formData.get('requestPriority'),
+                title: formData.get('requestTitle'),
+                message: formData.get('requestMessage'),
+                contact: formData.get('userContact'),
+                timestamp: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            // Validate form
+            if (!requestData.title || !requestData.message) {
+                showError('Harap isi judul dan detail request');
+                return;
+            }
+            
+            showLoading(true);
+            
+            // Save to localStorage
+            saveRequestToHistory(requestData);
+            
+            // Send to WhatsApp
+            sendToWhatsApp(requestData);
+            
+            // Show success and reset form
+            setTimeout(() => {
+                showLoading(false);
+                showSuccess();
+                form.reset();
+                
+                // Reset to default type
+                document.querySelector('.request-type-btn[data-type="feature"]').click();
+                
+                // Reload history
+                loadRequestHistory();
+            }, 2000);
+        }
+        
+        function saveRequestToHistory(requestData) {
+            const userData = getCurrentUserData();
+            if (!userData.requestHistory) {
+                userData.requestHistory = [];
+            }
+            
+            // Add request to history
+            userData.requestHistory.unshift({
+                id: Date.now(),
+                ...requestData
+            });
+            
+            // Keep only last 20 requests
+            userData.requestHistory = userData.requestHistory.slice(0, 20);
+            
+            // Update user data
+            updateUserProfile({ requestHistory: userData.requestHistory });
+        }
+        
+        function sendToWhatsApp(requestData) {
+            const userData = getCurrentUserData();
+            const username = userData.profile.username;
+            const userEmail = localStorage.getItem('ndiidepzXmusic_userEmail');
+            
+            // Create formatted message for WhatsApp
+            const message = `*REQUEST BARU - ndiidepzXmusic*
+
+*User:* ${username}
+*Email:* ${userEmail}
+*Jenis:* ${requestTypes[requestData.type].name}
+*Prioritas:* ${getPriorityText(requestData.priority)}
+*Judul:* ${requestData.title}
+
+*Detail Request:*
+${requestData.message}
+
+${requestData.contact ? `*Kontak Follow-up:* ${requestData.contact}` : ''}
+
+*Timestamp:* ${new Date().toLocaleString('id-ID')}`;
+
+            // Generate WhatsApp link
+            const whatsappUrl = generateWhatsAppLink(message);
+            
+            // Open WhatsApp in new tab after short delay
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 1500);
+        }
+        
+        function generateWhatsAppLink(message) {
+            const encodedMessage = encodeURIComponent(message);
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+        }
+        
+        function getPriorityText(priority) {
+            const priorities = {
+                low: 'Rendah',
+                medium: 'Sedang', 
+                high: 'Tinggi'
+            };
+            return priorities[priority] || priority;
+        }
+        
+        function loadRequestHistory() {
+            const userData = getCurrentUserData();
+            const historyContainer = document.getElementById('requestHistory');
+            
+            if (!userData.requestHistory || userData.requestHistory.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="no-history">
+                        <i class="fas fa-inbox"></i>
+                        <h4>Belum ada request</h4>
+                        <p>Request yang Anda kirim akan muncul di sini</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            historyContainer.innerHTML = '';
+            
+            userData.requestHistory.forEach(request => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-header">
+                        <div>
+                            <span class="history-type">${requestTypes[request.type].name}</span>
+                            <span class="priority-badge priority-${request.priority}">
+                                ${getPriorityText(request.priority)}
+                            </span>
+                        </div>
+                        <div class="history-date">
+                            ${new Date(request.timestamp).toLocaleDateString('id-ID')}
+                        </div>
+                    </div>
+                    <div class="history-message">
+                        <strong>${request.title}</strong>
+                        <p style="margin-top: 8px; color: var(--gray);">${request.message}</p>
+                    </div>
+                    <div>
+                        <span class="history-status status-${request.status}">
+                            ${request.status === 'pending' ? 'Menunggu' : 'Selesai'}
+                        </span>
+                    </div>
+                `;
+                
+                historyContainer.appendChild(historyItem);
+            });
+        }
+        
+        function showLoading(show) {
+            const spinner = document.getElementById('loadingSpinner');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (show) {
+                spinner.style.display = 'block';
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            } else {
+                spinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Request';
+            }
+        }
+        
+        function showSuccess() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        function logout() {
+            localStorage.removeItem('ndiidepzXmusic_loggedIn');
+            localStorage.removeItem('ndiidepzXmusic_currentUser');
+            localStorage.removeItem('ndiidepzXmusic_username');
+            localStorage.removeItem('ndiidepzXmusic_userEmail');
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeRequestSystem();
+            loadRequestHistory();
+        });
+    </script>
+</body>
+</html>
