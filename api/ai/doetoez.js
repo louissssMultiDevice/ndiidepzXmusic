@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   const { q, apikey, style } = req.query;
 
   // Validasi API Key platform kita
-  if (apikey !== 'ndiidepzXmusic') {
+  if (apikey !== 'ndiidepzX') {
     return res.status(401).json({ error: 'Invalid platform API key' });
   }
 
