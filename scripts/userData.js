@@ -5,6 +5,44 @@ class UserDataManager {
         this.currentUser = null;
         this.usersFolder = 'data/users/';
     }
+    // Di dalam class UserDataManager, tambahkan method:
+
+// Verify email login
+async verifyEmailLogin(email, password) {
+    try {
+        const userData = await this.loadUserData(email);
+        
+        // Check if user exists and has email auth
+        if (userData && userData.auth && userData.auth.loginMethod === 'email') {
+            // In real app, use proper password hashing verification
+            // For demo, we're using simple base64 encoding
+            return userData.auth.password === btoa(password);
+        }
+        
+        return false;
+    } catch (error) {
+        console.error('Email login verification error:', error);
+        return false;
+    }
+}
+
+// Update user password
+async updatePassword(email, newPassword) {
+    try {
+        const userData = await this.loadUserData(email);
+        
+        if (userData && userData.auth) {
+            userData.auth.password = btoa(newPassword); // Use proper hashing in production
+            await this.saveUserData(email, userData);
+            return true;
+        }
+        
+        return false;
+    } catch (error) {
+        console.error('Password update error:', error);
+        return false;
+    }
+}
 
     // Initialize user system
     init() {
