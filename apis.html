@@ -1008,7 +1008,251 @@
                 </button>
             </div>
 
+             <!-- AI Assistant Section -->
+            <div id="ai-assistant" class="api-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <div class="section-icon">🤖</div>
+                        Doetoez AI Assistant
+                    </h2>
+                    <p class="section-description">Advanced AI assistant for coding, content creation, and problem solving with natural language processing</p>
+                </div>
+
+                <div class="endpoint-grid">
+                    <!-- Doetoez AI Endpoint -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/ai/doetoez</span>
+                            <span class="status-badge">Ready</span>
+                        </div>
+                        
+                        <div class="endpoint-description">
+                            Intelligent AI assistant powered by advanced language models. Capable of code generation, content creation, problem solving, and natural conversations.
+                        </div>
+
+                        <div class="parameters-section">
+                            <div class="param-title">
+                                <i class="fas fa-list"></i>
+                                Query Parameters
+                            </div>
+                            <table class="param-table">
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     
+                                    <tr>
+                                        <td><code>q</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Required</span></td>
+                                        <td>Your question or message for the AI assistant</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>apikey</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Required</span></td>
+                                        <td>Your API authentication key</td>
+                                    </tr>
+                                     <tr>
+                                        <td><code>style</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Required</span></td>
+                                        <td>Your Style for the AI assistant</td>
+                                     </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="code-section">
+                            <div class="code-header">
+                                <div class="code-title">
+                                    <i class="fas fa-code"></i>
+                                    Example Request
+                                </div>
+                                <div class="code-actions">
+                                    <button class="code-btn" onclick="copyCode('ai-example')">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                    <button class="code-btn" onclick="runExample('ai-example')">
+                                        <i class="fas fa-play"></i> Run
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="code-block">
+                                <pre id="ai-example"><code>fetch('/api/ai/doetoez?q=haloo$apikey=ndiidepzX&style=asistant')
+  .then(response => response.json())
+  .then(data => {
+    console.log('AI Response:', data.response);
+  });</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="try-section">
+                            <div class="try-header">
+                                <div class="try-title">
+                                    <i class="fas fa-flask"></i>
+                                    Try It Out
+                                </div>
+                                <div class="try-actions">
+                                    <button class="try-btn secondary" onclick="clearTrySection('ai')">
+                                        <i class="fas fa-broom"></i> Clear
+                                    </button>
+                                    <button class="try-btn" onclick="testDoetoezAI()">
+                                        <i class="fas fa-paper-plane"></i> Send Request
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="input-grid">
+                                <div class="input-group">
+                                    <label class="input-label">
+                                        <i class="fas fa-question"></i>
+                                        Your Question
+                                    </label>
+                                    <input type="text" class="input-field" id="aiQuery" 
+                                           placeholder="Ask Doetoez AI anything..." 
+                                           value="Bantu saya buat kode HTML untuk player musik">
+                                </div>
+                            </div>
+                            <div class="response-section">
+                                <div class="response-header">
+                                    <div class="response-title">Response</div>
+                                    <div class="response-status" id="aiStatus">Ready</div>
+                                </div>
+                                <div class="response-box">
+                                    <pre id="aiResponse">// AI response will appear here</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- AI Assistant Section -->
+            <div id="ai-assistant" class="api-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <div class="section-icon">🤖</div>
+                        Pirate AI 
+                        
+                    </h2>
+                    <p class="section-description">Advanced AI assistant for coding, content creation, and problem solving with natural language processing</p>
+                </div>
+
+                <div class="endpoint-grid">
+                    <!-- Doetoez AI Endpoint -->
+                    <div class="endpoint-card">
+                        <div class="endpoint-header">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/ai/pirate</span>
+                            <span class="status-badge">Ready</span>
+                        </div>
+                        
+                        <div class="endpoint-description">
+                            Intelligent AI assistant powered by advanced language models. Capable of code generation, content creation, problem solving, and natural conversations.
+                        </div>
+
+                        <div class="parameters-section">
+                            <div class="param-title">
+                                <i class="fas fa-list"></i>
+                                Query Parameters
+                            </div>
+                            <table class="param-table">
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>q</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Required</span></td>
+                                        <td>Your question or message for the AI assistant</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>apikey</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Required</span></td>
+                                        <td>Your API authentication key</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="code-section">
+                            <div class="code-header">
+                                <div class="code-title">
+                                    <i class="fas fa-code"></i>
+                                    Example Request
+                                </div>
+                                <div class="code-actions">
+                                    <button class="code-btn" onclick="copyCode('ai-example')">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                    <button class="code-btn" onclick="runExample('ai-example')">
+                                        <i class="fas fa-play"></i> Run
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="code-block">
+                                <pre id="ai-example"><code>fetch('/api/ai/pirate?q=halo!&apikey=ndiidepzX')
+  .then(response => response.json())
+  .then(data => {
+    console.log('AI Response:', data.response);
+  });</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="try-section">
+                            <div class="try-header">
+                                <div class="try-title">
+                                    <i class="fas fa-flask"></i>
+                                    Try It Out
+                                </div>
+                                <div class="try-actions">
+                                    <button class="try-btn secondary" onclick="clearTrySection('ai')">
+                                        <i class="fas fa-broom"></i> Clear
+                                    </button>
+                                    <button class="try-btn" onclick="testPirteAI()">
+                                        <i class="fas fa-paper-plane"></i> Send Request
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="input-grid">
+                                <div class="input-group">
+                                    <label class="input-label">
+                                        <i class="fas fa-question"></i>
+                                        Your Question
+                                    </label>
+                                    <input type="text" class="input-field" id="aiQuery" 
+                                           placeholder="Ask Pirate AI anything..." 
+                                           value="Arrr, haloo">
+                                </div>
+                            </div>
+                            <div class="response-section">
+                                <div class="response-header">
+                                    <div class="response-title">Response</div>
+                                    <div class="response-status" id="aiStatus">Ready</div>
+                                </div>
+                                <div class="response-box">
+                                    <pre id="aiResponse">// AI response will appear here</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- AI Assistant Section -->
             <div id="ai-assistant" class="api-section">
                 <div class="section-header">
                     <h2 class="section-title">
@@ -1078,7 +1322,7 @@
                                 </div>
                             </div>
                             <div class="code-block">
-                                <pre id="ai-example"><code>fetch('/api/ai/doetoez?q=halo!&apikey=ndiidepzX')
+                                <pre id="ai-example"><code>fetch('/api/ai/doetoez?q=How to create a music player with JavaScript&apikey=ndiidepzXmusic')
   .then(response => response.json())
   .then(data => {
     console.log('AI Response:', data.response);
@@ -1153,7 +1397,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 NdiidepzXmusic. All rights reserved.</p>
+            <p>&copy; 2025 NdiidepzXmusic. All rights reserved.</p>
         </div>
     </footer>
 
@@ -1244,7 +1488,30 @@
             status.style.background = 'var(--warning)';
             
             try {
-                const response = await fetch(`/api/ai/doetoez?q=${encodeURIComponent(query)}&apikey=ndiidepzX`);
+                const response = await fetch(`/api/ai/doetoez?q=${encodeURIComponent(query)}&apikey=ndiidepzX&style=asistant`);
+                const data = await response.json();
+                
+                responseBox.textContent = JSON.stringify(data, null, 2);
+                status.textContent = 'Success';
+                status.style.background = 'var(--success)';
+            } catch (error) {
+                responseBox.textContent = `❌ Error: ${error.message}`;
+                status.textContent = 'Error';
+                status.style.background = 'var(--error)';
+            }
+        }
+
+       async function testPirateAI() {
+            const query = document.getElementById('aiQuery').value;
+            const responseBox = document.getElementById('aiResponse');
+            const status = document.getElementById('aiStatus');
+            
+            responseBox.textContent = '🔄 Sending request to Pirate AI...';
+            status.textContent = 'Loading';
+            status.style.background = 'var(--warning)';
+            
+            try {
+                const response = await fetch(`/api/ai/pirate?q=${encodeURIComponent(query)}&apikey=ndiidepzX`);
                 const data = await response.json();
                 
                 responseBox.textContent = JSON.stringify(data, null, 2);
