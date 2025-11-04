@@ -397,3 +397,70 @@ function addToFavorites(type, itemId) {
 function logoutUser() {
     return userDataManager.logout();
 }
+
+// Song management functions
+async function addSongToLibrary(songData) {
+    if (!this.currentUser) return null;
+    
+    const userData = await this.loadUserData(this.currentUser);
+    
+    if (!userData.uploads) {
+        userData.uploads = { songs: [], albums: [], playlists: [] };
+    }
+
+    // Generate unique ID untuk song
+    songData.id = 'song_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    songData.uploadDate = new Date().toISOString();
+    songData.plays = 0;
+    songData.likes = 0;
+    songData.userId = this.currentUser;
+
+    userData.uploads.songs.unshift(songData);
+    
+    await this.saveUserData(this.currentUser, userData);
+    return songData;
+}
+
+async function getUserSongs() {
+    if (!this.currentUser) return [];
+    
+    const userData = await this.loadUserData(this.currentUser);
+    return userData.uploads?.songs || [];
+}
+
+async function deleteSong(songId) {
+    if (!this.currentUser) return false;
+    
+    const userData = await this.loadUserData(this.currentUser);
+    
+    if (userData.uploads?.songs) {
+        userData.uploads.songs = userData.uploads.songs.filter(song => song.id !== songId);
+        await this.saveUserData(this.currentUser, userData);
+        return true;
+    }
+    
+    return false;
+}
+
+async function updateSong(songId, updates) {
+    if (!this.currentUser) return null;
+    
+    const userData = await this.loadUserData(this.currentUser);
+    
+    if (userData.uploads?.songs) {
+        const songIndex = userData.uploads.songs.findIndex(song => song.id === songId);
+        if (songIndex !== -1) {
+            userData.uploads.songs[songIndex] = { ...userData.uploads.songs[songIndex], ...updates };
+            await this.saveUserData(this.currentUser, userData);
+            return userData.uploads.songs[songIndex];
+        }
+    }
+    
+    return null;
+}
+
+// Add to global functions
+UserDataManager.prototype.addSongToLibrary = addSongToLibrary;
+UserDataManager.prototype.getUserSongs = getUserSongs;
+UserDataManager.prototype.deleteSong = deleteSong;
+UserDataManager.prototype.updateSong = updateSong;
