@@ -79,7 +79,7 @@ Setiap kali Asistant Doetoez mengirim kode, tampilkan dalam format rapi dengan t
             'Authorization': `Bearer ${OPENAI_KEY}`
         },
         body: JSON.stringify({
-            model: 'gpt-4',
+            model: 'gpt-3.5',
             messages: messages,
             max_tokens: 2000,
             temperature: 0.7
