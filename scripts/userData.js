@@ -62,6 +62,17 @@ async updatePassword(email, newPassword) {
         return false;
     }
 
+// Get current user ID
+function getCurrentUserId() {
+    const userEmail = userDataManager.getCurrentUser();
+    return userEmail ? userEmail.replace(/[^a-zA-Z0-9]/g, '_') : null;
+}
+
+// Get auth token (simulasi)
+function getAuthToken() {
+    return localStorage.getItem('ndiidepzXmusic_authToken') || 'demo-token';
+}
+
     // Get current user data
     getCurrentUser() {
         return this.currentUser;
