@@ -16,6 +16,7 @@
             --dark: #121212;
             --gray: #b3b3b3;
             --dark-gray: #535353;
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary);
         }
         
         * {
@@ -26,12 +27,53 @@
         }
         
         body {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
             color: var(--light);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 99%, rgba(29, 185, 84, 0.03) 100%),
+                linear-gradient(transparent 99%, rgba(29, 185, 84, 0.03) 100%);
+            background-size: 50px 50px;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+            }
         }
         
         .container {
@@ -42,9 +84,10 @@
         
         /* Header Styles */
         header {
-            background-color: var(--secondary);
+            background: rgba(25, 20, 20, 0.8);
+            backdrop-filter: blur(20px);
             padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(29, 185, 84, 0.3);
         }
         
         .header-content {
@@ -62,6 +105,7 @@
         .logo h1 {
             font-size: 24px;
             color: var(--primary);
+            text-shadow: var(--neon-glow);
         }
         
         .logo span {
@@ -73,10 +117,15 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .back-home:hover {
             color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(29, 185, 84, 0.1);
         }
         
         /* Login Section */
@@ -89,16 +138,37 @@
         }
         
         .login-container {
-            background-color: var(--secondary);
+            background: rgba(25, 20, 20, 0.9);
+            backdrop-filter: blur(20px);
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 20px;
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            text-align: center;
+            max-width: 480px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-container:hover::before {
+            left: 100%;
         }
         
         .login-header {
+            text-align: center;
             margin-bottom: 30px;
         }
         
@@ -106,6 +176,7 @@
             color: var(--primary);
             font-size: 32px;
             margin-bottom: 10px;
+            text-shadow: var(--neon-glow);
         }
         
         .login-header p {
@@ -114,18 +185,25 @@
         }
         
         .login-image {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 20px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 0 30px rgba(29, 185, 84, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .login-image i {
-            font-size: 50px;
+            font-size: 40px;
             color: white;
         }
         
@@ -138,13 +216,229 @@
         .feature-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 12px;
+            margin-bottom: 15px;
             color: var(--gray);
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
         
         .feature-item i {
             color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-size: 18px;
+        }
+
+        /* Login Methods */
+        .login-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .login-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--light);
+        }
+
+        .login-method:hover {
+            background: rgba(29, 185, 84, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+        }
+
+        .method-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .method-google { background: #4285F4; }
+        .method-email { background: var(--primary); }
+        .method-username { background: #9C27B0; }
+
+        .method-info {
+            flex: 1;
+        }
+
+        .method-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .method-desc {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .method-arrow {
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .login-method:hover .method-arrow {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* Quick Login Form */
+        .quick-login-form {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-input::placeholder {
+            color: var(--gray);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .toggle-password:hover {
+            color: var(--primary);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .remember-me input {
+            accent-color: var(--primary);
+        }
+        
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
         }
         
         .divider {
@@ -152,6 +446,7 @@
             margin: 25px 0;
             color: var(--gray);
             position: relative;
+            font-size: 14px;
         }
         
         .divider::before {
@@ -161,7 +456,7 @@
             left: 0;
             width: 45%;
             height: 1px;
-            background-color: var(--dark-gray);
+            background: linear-gradient(90deg, transparent, var(--dark-gray));
         }
         
         .divider::after {
@@ -171,156 +466,26 @@
             right: 0;
             width: 45%;
             height: 1px;
-            background-color: var(--dark-gray);
-        }
-        
-        /* Google Sign In Button */
-        .gsi-material-button {
-            background-color: #4285F4;
-            background-image: none;
-            border: none;
-            border-radius: 8px;
-            box-sizing: border-box;
-            color: #ffffff;
-            cursor: pointer;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 16px;
-            height: 50px;
-            letter-spacing: 0.25px;
-            outline: none;
-            overflow: hidden;
-            padding: 0 20px;
-            position: relative;
-            text-align: center;
-            transition: background-color .218s, box-shadow .218s;
-            vertical-align: middle;
-            white-space: nowrap;
-            width: 100%;
-            max-width: 400px;
-            min-width: min-content;
-            margin: 10px 0;
-        }
-        
-        .gsi-material-button .gsi-material-button-icon {
-            height: 20px;
-            margin-right: 12px;
-            min-width: 20px;
-            width: 20px;
-        }
-        
-        .gsi-material-button .gsi-material-button-content-wrapper {
-            align-items: center;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            height: 100%;
-            justify-content: space-between;
-            position: relative;
-            width: 100%;
-        }
-        
-        .gsi-material-button .gsi-material-button-contents {
-            flex-grow: 1;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 500;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: top;
-        }
-        
-        .gsi-material-button:hover {
-            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
-            background-color: #3367d6;
-        }
-        
-        .gsi-material-button:active {
-            background-color: #2b56b0;
-        }
-        
-        /* Custom Google Button Fallback */
-        .google-login-custom {
-            background-color: #4285F4;
-            color: white;
-            width: 100%;
-            padding: 15px;
-            border-radius: 8px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s;
-            margin: 10px 0;
-        }
-        
-        .google-login-custom:hover {
-            background-color: #3367d6;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
-        }
-        
-        .google-login-custom:active {
-            transform: translateY(0);
-        }
-        
-        .google-icon {
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4285F4;
-            font-size: 14px;
-        }
-        
-        .alternative-login {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid var(--dark-gray);
-        }
-        
-        .alternative-login p {
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-        
-        .email-login-btn {
-            background-color: transparent;
-            color: var(--light);
-            border: 1px solid var(--light);
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .email-login-btn:hover {
-            background-color: var(--light);
-            color: var(--dark);
+            background: linear-gradient(90deg, var(--dark-gray), transparent);
         }
         
         .register-link {
             text-align: center;
             margin-top: 25px;
             color: var(--gray);
+            font-size: 14px;
         }
         
         .register-link a {
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s;
         }
         
         .register-link a:hover {
             text-decoration: underline;
+            text-shadow: var(--neon-glow);
         }
         
         .loading-spinner {
@@ -328,7 +493,7 @@
             margin: 20px auto;
             width: 40px;
             height: 40px;
-            border: 4px solid var(--dark-gray);
+            border: 4px solid rgba(255, 255, 255, 0.1);
             border-top: 4px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -341,40 +506,65 @@
         
         .success-message {
             display: none;
-            background-color: var(--primary);
-            color: white;
+            background: rgba(29, 185, 84, 0.2);
+            color: var(--light);
             padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .error-message {
+            display: none;
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--light);
+            padding: 12px;
             border-radius: 8px;
             margin: 15px 0;
             text-align: center;
+            font-size: 14px;
+            border: 1px solid #e74c3c;
+            backdrop-filter: blur(10px);
         }
-        
+
         /* Footer */
         footer {
-            background-color: var(--secondary);
+            background: rgba(25, 20, 20, 0.9);
+            backdrop-filter: blur(20px);
             padding: 30px 0 20px;
             text-align: center;
+            border-top: 1px solid rgba(29, 185, 84, 0.3);
         }
         
         .supported-by {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
             margin-top: 20px;
         }
         
         .supported-by span {
-            background-color: var(--dark);
+            background: rgba(255, 255, 255, 0.05);
             padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .supported-by span:hover {
+            background: rgba(29, 185, 84, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
         
         .copyright {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--dark-gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--gray);
             font-size: 14px;
         }
@@ -389,10 +579,28 @@
             .login-header h2 {
                 font-size: 28px;
             }
+            
+            .form-options {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .login-methods {
+                gap: 10px;
+            }
+
+            .login-method {
+                padding: 12px 15px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Background Effects -->
+    <div class="cyber-grid"></div>
+    <div class="floating-particles" id="floatingParticles"></div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -419,7 +627,7 @@
                 
                 <div class="login-header">
                     <h2>Masuk ke ndiidepzXmusic</h2>
-                    <p>Dengarkan musik tanpa batas dengan akun Anda</p>
+                    <p>Pilih metode login yang Anda inginkan</p>
                 </div>
                 
                 <div class="features-list">
@@ -435,36 +643,97 @@
                         <i class="fas fa-check-circle"></i>
                         <span>Unggah musik Anda sendiri</span>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Ikuti artis dan teman</span>
-                    </div>
-                </div>
-                
-                <!-- Google Sign In Button -->
-                <div id="g_id_onload"
-                    data-client_id="732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com"
-                    data-context="signin"
-                    data-ux_mode="popup"
-                    data-callback="handleGoogleSignIn"
-                    data-auto_prompt="false">
                 </div>
 
-                <div class="g_id_signin"
-                    data-type="standard"
-                    data-shape="rectangular"
-                    data-theme="filled_blue"
-                    data-text="signin_with"
-                    data-size="large"
-                    data-logo_alignment="left"
-                    data-width="400">
+                <!-- Login Methods -->
+                <div class="login-methods">
+                    <!-- Google Login -->
+                    <div class="login-method" onclick="handleGoogleLogin()">
+                        <div class="method-icon method-google">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="method-info">
+                            <div class="method-title">Continue with Google</div>
+                            <div class="method-desc">Login cepat dengan akun Google</div>
+                        </div>
+                        <div class="method-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Email Login -->
+                    <a href="email-login.html" class="login-method">
+                        <div class="method-icon method-email">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="method-info">
+                            <div class="method-title">Login with Email</div>
+                            <div class="method-desc">Gunakan alamat email Anda</div>
+                        </div>
+                        <div class="method-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+
+                    <!-- Username Login -->
+                    <a href="username-login.html" class="login-method">
+                        <div class="method-icon method-username">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="method-info">
+                            <div class="method-title">Login with Username</div>
+                            <div class="method-desc">Gunakan username Anda</div>
+                        </div>
+                        <div class="method-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
                 </div>
-                
-                <!-- Custom Google Button Fallback -->
-                <button class="google-login-custom" id="googleLoginCustom">
-                    <div class="google-icon">G</div>
-                    Continue with Google
-                </button>
+
+                <!-- Quick Login Form -->
+                <div class="quick-login-form">
+                    <h4 style="margin-bottom: 15px; color: var(--primary); text-align: center;">Quick Login</h4>
+                    <form id="quickLoginForm">
+                        <div class="form-group">
+                            <label for="loginId" class="form-label">Email, Username, atau Phone</label>
+                            <input 
+                                type="text" 
+                                id="loginId" 
+                                class="form-input" 
+                                placeholder="Masukkan email, username, atau phone"
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="password-container">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    class="form-input" 
+                                    placeholder="Masukkan password"
+                                    required
+                                >
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="rememberMe">
+                                Ingat saya
+                            </label>
+                            <a href="forgot-password.html" class="forgot-password">Lupa password?</a>
+                        </div>
+                        
+                        <button type="submit" class="login-btn" id="loginBtn">
+                            <i class="fas fa-sign-in-alt"></i> Masuk Sekarang
+                        </button>
+                    </form>
+                </div>
                 
                 <div class="loading-spinner" id="loadingSpinner"></div>
                 
@@ -472,13 +741,8 @@
                     <i class="fas fa-check-circle"></i> Berhasil login! Mengarahkan...
                 </div>
                 
-                <div class="divider">atau</div>
-                
-                <div class="alternative-login">
-                    <p>Masuk dengan email</p>
-                    <button class="email-login-btn" onclick="window.location.href='email-login.html'">
-                        <i class="fas fa-envelope"></i> Lanjutkan dengan Email
-                    </button>
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
                 </div>
                 
                 <div class="register-link">
@@ -504,56 +768,241 @@
             </div>
         </div>
     </footer>
-    
-    <script src="music-data.js"></script>
+
+    <!-- Google Sign In -->
+    <div id="g_id_onload"
+        data-client_id="732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleGoogleSignIn"
+        data-auto_prompt="false">
+    </div>
+
+    <script src="scripts/userData.js"></script>
     <script>
-        // Configuration
-        const GOOGLE_CLIENT_ID = '732926475897-bep4e4qg150gvtqfrtbjfda34fc2cdtb.apps.googleusercontent.com'; // Ganti dengan Client ID Anda
-        
-        // Initialize Google Sign In
-        function initializeGoogleSignIn() {
-            // Update the client ID
-            const googleSignInElement = document.querySelector('#g_id_onload');
-            if (googleSignInElement) {
-                googleSignInElement.setAttribute('data-client_id', GOOGLE_CLIENT_ID);
+        // Create floating particles
+        function createFloatingParticles() {
+            const container = document.getElementById('floatingParticles');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    width: ${Math.random() * 3 + 1}px;
+                    height: ${Math.random() * 3 + 1}px;
+                    background: var(--primary);
+                    top: ${Math.random() * 100}vh;
+                    left: ${Math.random() * 100}vw;
+                    opacity: ${Math.random() * 0.2 + 0.1};
+                    animation: float ${Math.random() * 20 + 10}s infinite linear;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                container.appendChild(particle);
+            }
+        }
+
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        });
+
+        // Quick login form submission
+        document.getElementById('quickLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const loginId = document.getElementById('loginId').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            if (!loginId || !password) {
+                showError('Harap isi semua field');
+                return;
             }
             
-            // Custom button fallback
-            document.getElementById('googleLoginCustom').addEventListener('click', function() {
-                triggerGoogleSignIn();
-            });
+            await processQuickLogin(loginId, password, rememberMe);
+        });
+
+        // Process quick login with multiple identifier types
+        async function processQuickLogin(loginId, password, rememberMe) {
+            showLoading(true);
+            hideError();
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Determine login type and find user
+                let userEmail = null;
+                
+                if (loginId.includes('@')) {
+                    // Email login
+                    userEmail = await findUserByEmail(loginId);
+                } else if (/^\d+$/.test(loginId)) {
+                    // Phone login (future feature)
+                    showError('Login dengan nomor telepon belum tersedia');
+                    showLoading(false);
+                    return;
+                } else {
+                    // Username login
+                    userEmail = await findUserByUsername(loginId);
+                }
+                
+                if (!userEmail) {
+                    showError('Akun tidak ditemukan');
+                    showLoading(false);
+                    return;
+                }
+                
+                // Verify password
+                const isValid = await verifyUserPassword(userEmail, password);
+                
+                if (isValid) {
+                    await completeLogin(userEmail, 'quick');
+                } else {
+                    showError('Password salah');
+                    showLoading(false);
+                }
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Terjadi kesalahan saat login');
+                showLoading(false);
+            }
         }
-        
-        // Trigger Google Sign In
-        function triggerGoogleSignIn() {
+
+        // Find user by email
+        async function findUserByEmail(email) {
+            const userKey = `ndiidepzXmusic_userData_${email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+            const userData = localStorage.getItem(userKey);
+            return userData ? email : null;
+        }
+
+        // Find user by username
+        async function findUserByUsername(username) {
+            // Search through all users in localStorage
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('ndiidepzXmusic_userData_')) {
+                    const userData = JSON.parse(localStorage.getItem(key));
+                    if (userData.profile.username === username) {
+                        return userData.profile.email;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // Verify user password
+        async function verifyUserPassword(email, password) {
+            const userKey = `ndiidepzXmusic_userData_${email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+            const userData = JSON.parse(localStorage.getItem(userKey));
+            
+            if (userData && userData.auth) {
+                return userData.auth.password === btoa(password);
+            }
+            return false;
+        }
+
+        // Complete login process
+        async function completeLogin(email, method) {
+            const userKey = `ndiidepzXmusic_userData_${email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+            const userData = JSON.parse(localStorage.getItem(userKey));
+            
+            // Update last login
+            userData.profile.lastLogin = new Date().toISOString();
+            localStorage.setItem(userKey, JSON.stringify(userData));
+            
+            // Set session
+            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
+            localStorage.setItem('ndiidepzXmusic_userEmail', email);
+            localStorage.setItem('ndiidepzXmusic_username', userData.profile.username);
+            localStorage.setItem('ndiidepzXmusic_loginMethod', method);
+            
+            // Initialize user system
+            if (typeof setCurrentUser === 'function') {
+                setCurrentUser(email);
+            }
+            
+            showSuccessMessage();
+            
+            setTimeout(() => {
+                window.location.href = 'docs.html';
+            }, 2000);
+        }
+
+        // Google Login Handlers
+        function handleGoogleLogin() {
             showLoading(true);
             
-            // Try to use Google Identity Services
             if (window.google && window.google.accounts) {
                 google.accounts.id.prompt();
             } else {
-                // Fallback: Simulate Google login for demo
+                // Fallback demo
                 simulateGoogleLogin();
             }
         }
-        
-        // Handle Google Sign In Response
+
         function handleGoogleSignIn(response) {
             showLoading(true);
             
-            // Decode the credential response
-            const responsePayload = parseJwt(response.credential);
-            
-            if (responsePayload) {
-                // Process the successful login
-                processGoogleLogin(responsePayload);
-            } else {
+            try {
+                const responsePayload = parseJwt(response.credential);
+                if (responsePayload) {
+                    processGoogleLogin(responsePayload);
+                } else {
+                    showError('Gagal memproses login Google');
+                    showLoading(false);
+                }
+            } catch (error) {
+                console.error('Google login error:', error);
+                showError('Terjadi kesalahan dengan login Google');
                 showLoading(false);
-                alert('Terjadi kesalahan saat login. Silakan coba lagi.');
             }
         }
+
+        function processGoogleLogin(userData) {
+            const userEmail = userData.email;
+            const userName = userData.name || userData.email.split('@')[0];
+            
+            // Check if user exists, if not create new
+            const userKey = `ndiidepzXmusic_userData_${userEmail.replace(/[^a-zA-Z0-9]/g, '_')}`;
+            let userDataStored = localStorage.getItem(userKey);
+            
+            if (!userDataStored) {
+                // Create new user for Google login
+                const newUserData = {
+                    profile: {
+                        username: userName,
+                        email: userEmail,
+                        joinDate: new Date().toISOString(),
+                        lastLogin: new Date().toISOString(),
+                        avatar: userData.picture || '',
+                        bio: '',
+                        location: ''
+                    },
+                    auth: {
+                        loginMethod: 'google'
+                    },
+                    // ... other user data structure
+                };
+                localStorage.setItem(userKey, JSON.stringify(newUserData));
+            }
+            
+            completeLogin(userEmail, 'google');
+        }
+
         
-        // Parse JWT token
+
+        // JWT parser for Google login
         function parseJwt(token) {
             try {
                 const base64Url = token.split('.')[1];
@@ -561,96 +1010,73 @@
                 const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
-                
                 return JSON.parse(jsonPayload);
             } catch (e) {
                 console.error('Error parsing JWT:', e);
                 return null;
             }
         }
-        
-        // Process Google Login
-        function processGoogleLogin(userData) {
-            console.log('Google User Data:', userData);
-            
-            // Create user account in our system
-            const userEmail = userData.email;
-            const userName = userData.name || userData.email.split('@')[0];
-            const userPicture = userData.picture || '';
-            
-            // Set user data in localStorage
-            localStorage.setItem('ndiidepzXmusic_loggedIn', 'true');
-            localStorage.setItem('ndiidepzXmusic_userEmail', userEmail);
-            localStorage.setItem('ndiidepzXmusic_username', userName);
-            localStorage.setItem('ndiidepzXmusic_userPicture', userPicture);
-            localStorage.setItem('ndiidepzXmusic_loginMethod', 'google');
-            
-            // Initialize user in our music system
-            setCurrentUser(userEmail);
-            
-            // Show success message
-            showSuccessMessage();
-            
-            // Redirect to dashboard after 2 seconds
-            setTimeout(() => {
-                window.location.href = 'docs.html';
-            }, 2000);
-        }
-        
-        
-        // Show/hide loading spinner
+
+        // UI Helper functions
         function showLoading(show) {
             const spinner = document.getElementById('loadingSpinner');
-            const googleButton = document.querySelector('.g_id_signin');
-            const customButton = document.getElementById('googleLoginCustom');
+            const loginBtn = document.getElementById('loginBtn');
             
             if (show) {
                 spinner.style.display = 'block';
-                if (googleButton) googleButton.style.opacity = '0.5';
-                if (customButton) customButton.style.opacity = '0.5';
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
             } else {
                 spinner.style.display = 'none';
-                if (googleButton) googleButton.style.opacity = '1';
-                if (customButton) customButton.style.opacity = '1';
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk Sekarang';
             }
         }
-        
-        // Show success message
+
         function showSuccessMessage() {
             const successMessage = document.getElementById('successMessage');
             successMessage.style.display = 'block';
         }
-        
-        // Check if user is already logged in
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            errorText.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function hideError() {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'none';
+        }
+
+        // Check existing login
         function checkExistingLogin() {
             const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
             if (isLoggedIn === 'true') {
                 window.location.href = 'docs.html';
             }
         }
-        
-        // Initialize when page loads
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             checkExistingLogin();
-            initializeGoogleSignIn();
+            createFloatingParticles();
             
-            // Add some interactive effects
+            // Animation effects
             const loginContainer = document.querySelector('.login-container');
-            loginContainer.style.transform = 'translateY(20px)';
+            loginContainer.style.transform = 'translateY(30px) scale(0.95)';
             loginContainer.style.opacity = '0';
             
             setTimeout(() => {
-                loginContainer.style.transition = 'all 0.5s ease';
-                loginContainer.style.transform = 'translateY(0)';
+                loginContainer.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                loginContainer.style.transform = 'translateY(0) scale(1)';
                 loginContainer.style.opacity = '1';
             }, 100);
-        });
-        
-        // Error handling for Google Sign In
-        window.addEventListener('google-auth-error', function(event) {
-            console.error('Google Auth Error:', event.detail);
-            showLoading(false);
-            alert('Terjadi kesalahan saat login dengan Google. Silakan coba lagi.');
+            
+            // Auto-focus
+            document.getElementById('loginId').focus();
         });
     </script>
 </body>
