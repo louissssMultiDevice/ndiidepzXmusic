@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Saya - ndiidepzXmusic</title>
+    <!-- Same styles as docs.html -->
+</head>
+<body>
+    <!-- Similar structure to docs.html but for library -->
+    <div class="library-container">
+        <h1>Library Saya</h1>
+        <div class="songs-grid" id="songsGrid">
+            <!-- Songs will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Load user's songs
+        async function loadUserSongs() {
+            if (typeof userDataManager === 'undefined') return;
+            
+            const songs = await userDataManager.getUserSongs();
+            displaySongs(songs);
+        }
+
+        function displaySongs(songs) {
+            const songsGrid = document.getElementById('songsGrid');
+            
+            if (songs.length === 0) {
+                songsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-music"></i>
+                        <h3>Belum ada lagu</h3>
+                        <p>Upload lagu pertama Anda dan bagikan dengan dunia!</p>
+                        <a href="upload.html" class="btn-primary">Upload Lagu Pertama</a>
+                    </div>
+                `;
+                return;
+            }
+
+            songsGrid.innerHTML = songs.map(song => `
+                <div class="song-card" data-song-id="${song.id}">
+                    <div class="song-cover">
+                        <img src="${song.cover}" alt="${song.title}">
+                        <div class="song-actions">
+                            <button class="btn-play" onclick="playSong('${song.id}')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="song-info">
+                        <h3 class="song-title">${song.title}</h3>
+                        <p class="song-artist">${song.artist}</p>
+                        <p class="song-album">${song.album || 'Single'}</p>
+                        <div class="song-stats">
+                            <span><i class="fas fa-play"></i> ${song.plays || 0}</span>
+                            <span><i class="fas fa-heart"></i> ${song.likes || 0}</span>
+                        </div>
+                    </div>
+                    <div class="song-menu">
+                        <button class="btn-menu" onclick="showSongMenu('${song.id}')">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadUserSongs);
+    </script>
+</body>
+</html>
