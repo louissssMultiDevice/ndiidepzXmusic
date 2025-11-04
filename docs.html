@@ -1929,6 +1929,7 @@
 
     <script src="scripts/userData.js"></script>
     <script src="music-data.js"></script>
+    <script src="auth.js"></script>
     <script>
         // Global variables
         let currentSong = null;
@@ -2708,19 +2709,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
             // Detect device and apply mode
             const device = detectDevice();
             
-            // Check login status
-            if (typeof userDataManager === 'undefined') {
-                console.error('UserDataManager not loaded');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const isLoggedIn = userDataManager.checkLoginStatus();
             
-            if (!isLoggedIn) {
-                window.location.href = 'login.html';
-                return;
-            }
             
             // Load user data
             const userEmail = userDataManager.getCurrentUser();
