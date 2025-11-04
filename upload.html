@@ -14,6 +14,7 @@
             --dark: #121212;
             --gray: #b3b3b3;
             --dark-gray: #535353;
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary);
         }
         
         * {
@@ -24,9 +25,52 @@
         }
         
         body {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
             color: var(--light);
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 99%, rgba(29, 185, 84, 0.03) 100%),
+                linear-gradient(transparent 99%, rgba(29, 185, 84, 0.03) 100%);
+            background-size: 50px 50px;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+            }
         }
         
         .container {
@@ -37,12 +81,10 @@
         
         /* Header Styles */
         header {
-            background-color: var(--secondary);
+            background: rgba(25, 20, 20, 0.9);
+            backdrop-filter: blur(20px);
             padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(29, 185, 84, 0.3);
         }
         
         .header-content {
@@ -60,363 +102,465 @@
         .logo h1 {
             font-size: 24px;
             color: var(--primary);
+            text-shadow: var(--neon-glow);
         }
         
         .logo span {
             color: var(--light);
         }
         
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .nav-links a {
+        .back-home {
             color: var(--gray);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
-        }
-        
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
-        }
-        
-        .user-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        
-        .btn {
             padding: 8px 16px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .btn-primary {
-            background-color: var(--primary);
-            color: var(--light);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--accent);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: var(--light);
-            border: 1px solid var(--light);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--light);
-            color: var(--dark);
+        .back-home:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(29, 185, 84, 0.1);
         }
         
         /* Upload Section */
         .upload-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 40px 0;
+        }
+        
+        .upload-container {
+            background: rgba(25, 20, 20, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(29, 185, 84, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .upload-container:hover::before {
+            left: 100%;
         }
         
         .upload-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         
         .upload-header h2 {
+            color: var(--primary);
             font-size: 32px;
             margin-bottom: 10px;
+            text-shadow: var(--neon-glow);
         }
         
         .upload-header p {
             color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .price-tag {
-            background-color: var(--primary);
-            color: var(--light);
-            padding: 8px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            margin: 15px 0;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .upload-container {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .upload-form {
-            flex: 1;
-            min-width: 300px;
-            background-color: var(--secondary);
-            padding: 30px;
-            border-radius: 10px;
-        }
-        
-        .upload-info {
-            flex: 1;
-            min-width: 300px;
-            background-color: var(--secondary);
-            padding: 30px;
-            border-radius: 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--gray);
-        }
-        
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid var(--dark-gray);
-            background-color: var(--dark);
-            color: var(--light);
             font-size: 16px;
         }
         
-        .form-group textarea {
+        .upload-icon {
+            width: 100px;
             height: 100px;
-            resize: vertical;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(29, 185, 84, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
-        .file-upload {
-            border: 2px dashed var(--dark-gray);
+        .upload-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        /* Upload Form */
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            color: var(--light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        /* File Upload Area */
+        .file-upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
             padding: 40px 20px;
             text-align: center;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            transition: all 0.3s;
             cursor: pointer;
-            transition: border-color 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .file-upload:hover {
+
+        .file-upload-area:hover {
             border-color: var(--primary);
+            background: rgba(29, 185, 84, 0.05);
         }
-        
-        .file-upload i {
-            font-size: 50px;
-            color: var(--primary);
+
+        .file-upload-area.dragover {
+            border-color: var(--primary);
+            background: rgba(29, 185, 84, 0.1);
+            transform: scale(1.02);
+        }
+
+        .upload-placeholder {
+            color: var(--gray);
             margin-bottom: 15px;
         }
-        
-        .file-upload p {
+
+        .upload-placeholder i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+
+        .file-size {
             color: var(--gray);
-            margin-bottom: 10px;
+            font-size: 12px;
         }
-        
-        .file-upload small {
-            color: var(--dark-gray);
+
+        .file-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            border-radius: 8px;
+            display: none;
         }
-        
-        .uploaded-files {
+
+        .file-preview.show {
+            display: block;
+        }
+
+        /* Audio Preview */
+        .audio-preview {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .audio-preview.show {
+            display: block;
+        }
+
+        .audio-preview audio {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Upload Progress */
+        .upload-progress {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .upload-progress.show {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* Form Options */
+        .form-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            accent-color: var(--primary);
+        }
+
+        .checkbox-label {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Upload Button */
+        .upload-btn {
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+        }
+
+        .upload-btn:disabled {
+            background: var(--dark-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .upload-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .upload-btn:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(29, 185, 84, 0.2);
+            color: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(10px);
             margin-top: 20px;
         }
-        
-        .uploaded-file {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: var(--dark);
-            border-radius: 5px;
-            margin-bottom: 10px;
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.5s ease;
         }
-        
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        
-        .file-icon {
+
+        .success-icon {
+            font-size: 48px;
             color: var(--primary);
-        }
-        
-        .file-actions button {
-            background: none;
-            border: none;
-            color: var(--gray);
-            cursor: pointer;
-        }
-        
-        .file-actions button:hover {
-            color: var(--light);
-        }
-        
-        .upload-info h3 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .info-list {
-            list-style: none;
-        }
-        
-        .info-list li {
             margin-bottom: 15px;
-            padding-left: 25px;
-            position: relative;
         }
-        
-        .info-list li:before {
-            content: "•";
-            color: var(--primary);
-            font-size: 20px;
-            position: absolute;
-            left: 0;
-            top: -2px;
-        }
-        
-        .payment-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--dark-gray);
-        }
-        
-        .payment-options {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .payment-option {
-            flex: 1;
-            min-width: 120px;
-            background-color: var(--dark);
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--light);
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            border: 1px solid #e74c3c;
+            backdrop-filter: blur(10px);
+            margin-top: 15px;
         }
-        
-        .payment-option:hover {
-            background-color: #282828;
+
+        .error-message.show {
+            display: block;
         }
-        
-        .payment-option.active {
-            border: 2px solid var(--primary);
-        }
-        
-        .payment-option i {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .submit-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-        
+
         /* Footer */
         footer {
-            background-color: var(--secondary);
-            padding: 50px 0 20px;
+            background: rgba(25, 20, 20, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 30px 0 20px;
             text-align: center;
-            margin-top: 50px;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-        
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .footer-section p, .footer-section a {
-            color: var(--gray);
-            margin-bottom: 10px;
-            display: block;
-            text-decoration: none;
-        }
-        
-        .footer-section a:hover {
-            color: var(--primary);
+            border-top: 1px solid rgba(29, 185, 84, 0.3);
         }
         
         .supported-by {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
             margin-top: 20px;
         }
         
         .supported-by span {
-            background-color: var(--dark);
+            background: rgba(255, 255, 255, 0.05);
             padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .supported-by span:hover {
+            background: rgba(29, 185, 84, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
         
         .copyright {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--dark-gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--gray);
             font-size: 14px;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .upload-container {
+                margin: 20px;
+                padding: 30px 20px;
             }
             
-            .user-info span {
-                display: none;
+            .upload-header h2 {
+                font-size: 28px;
+            }
+
+            .form-options {
+                grid-template-columns: 1fr;
+            }
+
+            .file-upload-area {
+                padding: 30px 15px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Background Effects -->
+    <div class="cyber-grid"></div>
+    <div class="floating-particles" id="floatingParticles"></div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -426,26 +570,9 @@
                     <h1>ndiidepzX<span>music</span></h1>
                 </div>
                 
-                <!-- Contoh navigasi yang sama di semua halaman -->
-<div class="nav-links">
-    <a href="docs.html">Beranda</a>
-    <a href="explore.html">Jelajahi</a>
-    <a href="search-users.html">Cari User</a>
-    <a href="search-artists.html">Cari Artist</a>
-    <a href="playlists.html">Playlist</a>
-    <a href="stats.html">Statistik</a>
-    <a href="request.html">Request</a>
-    <a href="help.html">Bantuan</a>
-    <a href="profile.html">Profil</a>
-</div>
-                
-                <div class="user-actions">
-                    <div class="user-info">
-                        <div class="user-avatar" id="userAvatar">U</div>
-                        <span id="username">User</span>
-                    </div>
-                    <button class="btn btn-outline" onclick="logout()">Keluar</button>
-                </div>
+                <a href="docs.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+                </a>
             </div>
         </div>
     </header>
@@ -453,144 +580,152 @@
     <!-- Upload Section -->
     <section class="upload-section">
         <div class="container">
-            <div class="upload-header">
-                <h2>Unggah Lagu Anda</h2>
-                <p>Bagikan karya musik Anda dengan dunia. Upload lagu Anda dan dapatkan eksposur dari jutaan pendengar.</p>
-                <div class="price-tag">Hanya Rp 1.000 / Lagu</div>
-                <p><small>Buat album gratis! Hanya bayar untuk setiap lagu yang diunggah.</small></p>
-            </div>
-            
             <div class="upload-container">
-                <div class="upload-form">
-                    <form id="uploadForm">
-                        <div class="form-group">
-                            <label for="songTitle">Judul Lagu</label>
-                            <input type="text" id="songTitle" placeholder="Masukkan judul lagu" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="artistName">Nama Artis</label>
-                            <input type="text" id="artistName" placeholder="Nama artis atau band" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="albumName">Nama Album (opsional)</label>
-                            <input type="text" id="albumName" placeholder="Masukkan nama album">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="genre">Genre</label>
-                            <select id="genre" required>
-                                <option value="">Pilih genre</option>
-                                <option value="pop">Pop</option>
-                                <option value="rock">Rock</option>
-                                <option value="jazz">Jazz</option>
-                                <option value="hiphop">Hip Hop</option>
-                                <option value="electronic">Electronic</option>
-                                <option value="r&b">R&B</option>
-                                <option value="country">Country</option>
-                                <option value="classical">Classical</option>
-                                <option value="reggae">Reggae</option>
-                                <option value="latin">Latin</option>
-                                <option value="k-pop">K-Pop</option>
-                                <option value="dangdut">Dangdut</option>
-                                <option value="other">Lainnya</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="lyrics">Lirik Lagu (opsional)</label>
-                            <textarea id="lyrics" placeholder="Masukkan lirik lagu di sini..."></textarea>
-                        </div>
-                        
-                        <div class="file-upload" id="fileUploadArea">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Seret file audio ke sini atau klik untuk mengunggah</p>
-                            <small>Format yang didukung: MP3, WAV, FLAC (Maks: 50MB)</small>
-                            <input type="file" id="audioFile" accept=".mp3,.wav,.flac" style="display: none;">
-                        </div>
-                        
-                        <div class="uploaded-files" id="uploadedFiles">
-                            <!-- Uploaded files will appear here -->
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="coverArt">Cover Art (opsional)</label>
-                            <input type="file" id="coverArt" accept="image/*">
-                        </div>
-                        
-                        <div class="payment-section">
-                            <h3>Metode Pembayaran</h3>
-                            <p>Pilih metode pembayaran untuk mengunggah lagu Anda:</p>
-                            
-                            <div class="payment-options">
-                                <div class="payment-option active" data-method="gopay">
-                                    <i class="fas fa-mobile-alt"></i>
-                                    <p>GoPay</p>
-                                </div>
-                                <div class="payment-option" data-method="ovo">
-                                    <i class="fas fa-wallet"></i>
-                                    <p>OVO</p>
-                                </div>
-                                <div class="payment-option" data-method="dana">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                    <p>DANA</p>
-                                </div>
-                                <div class="payment-option" data-method="bank">
-                                    <i class="fas fa-university"></i>
-                                    <p>Transfer Bank</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="submit-section">
-                            <button type="submit" class="btn btn-primary" style="padding: 12px 30px; font-size: 18px;">
-                                <i class="fas fa-upload"></i> Unggah Lagu (Rp 1.000)
-                            </button>
-                        </div>
-                    </form>
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
                 </div>
                 
-                <div class="upload-info">
-                    <h3>Informasi Upload</h3>
-                    <ul class="info-list">
-                        <li>
-                            <strong>Biaya Upload</strong>
-                            <p>Hanya Rp 1.000 per lagu. Tidak ada biaya tambahan.</p>
-                        </li>
-                        <li>
-                            <strong>Format File</strong>
-                            <p>Kami menerima MP3, WAV, dan FLAC dengan kualitas terbaik.</p>
-                        </li>
-                        <li>
-                            <strong>Hak Cipta</strong>
-                            <p>Pastikan Anda memiliki hak atas konten yang diunggah.</p>
-                        </li>
-                        <li>
-                            <strong>Pemrosesan</strong>
-                            <p>Lagu Anda akan tersedia dalam 24-48 jam setelah upload.</p>
-                        </li>
-                        <li>
-                            <strong>Album</strong>
-                            <p>Buat album gratis dan tambahkan lagu dengan biaya yang sama.</p>
-                        </li>
-                        <li>
-                            <strong>Dukungan</strong>
-                            <p>Tim kami siap membantu jika Anda mengalami kendala.</p>
-                        </li>
-                    </ul>
-                    
-                    <div class="payment-section">
-                        <h3>Pendapatan Artis</h3>
-                        <p>Sebagai artis di ndiidepzXmusic, Anda akan mendapatkan:</p>
-                        <ul class="info-list">
-                            <li>80% dari pendapatan streaming lagu Anda</li>
-                            <li>Laporan analitik mendetail tentang pendengar</li>
-                            <li>Eksposur ke jutaan pengguna platform</li>
-                            <li>Kesempatan untuk ditampilkan di playlist curated</li>
-                        </ul>
-                    </div>
+                <div class="upload-header">
+                    <h2>Upload Lagu Baru</h2>
+                    <p>Bagikan musik Anda dengan dunia</p>
                 </div>
+
+                <form id="uploadForm" class="upload-form">
+                    <!-- Basic Info -->
+                    <div class="form-group">
+                        <label for="songTitle" class="form-label">Judul Lagu *</label>
+                        <input type="text" id="songTitle" class="form-input" placeholder="Masukkan judul lagu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistName" class="form-label">Nama Artist *</label>
+                        <input type="text" id="artistName" class="form-input" placeholder="Nama artist atau band" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="albumName" class="form-label">Nama Album</label>
+                        <input type="text" id="albumName" class="form-input" placeholder="Nama album (opsional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="genre" class="form-label">Genre *</label>
+                        <select id="genre" class="form-select" required>
+                            <option value="">Pilih genre</option>
+                            <option value="pop">Pop</option>
+                            <option value="rock">Rock</option>
+                            <option value="jazz">Jazz</option>
+                            <option value="hiphop">Hip Hop</option>
+                            <option value="electronic">Electronic</option>
+                            <option value="rnb">R&B</option>
+                            <option value="classical">Classical</option>
+                            <option value="country">Country</option>
+                            <option value="reggae">Reggae</option>
+                            <option value="metal">Metal</option>
+                            <option value="folk">Folk</option>
+                            <option value="blues">Blues</option>
+                            <option value="latin">Latin</option>
+                            <option value="kpop">K-Pop</option>
+                            <option value="indie">Indie</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="form-label">Deskripsi</label>
+                        <textarea id="description" class="form-textarea" placeholder="Ceritakan tentang lagu ini..."></textarea>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="form-group">
+                        <label class="form-label">File Audio *</label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-file-audio"></i>
+                                <p>Klik atau drag file audio ke sini</p>
+                                <p class="file-types">MP3, WAV, FLAC, M4A (Max 50MB)</p>
+                            </div>
+                            <input type="file" id="audioFile" class="file-input" accept=".mp3,.wav,.flac,.m4a,.aac" required>
+                            
+                            <div class="file-info" id="fileInfo">
+                                <div class="file-name" id="fileName"></div>
+                                <div class="file-size" id="fileSize"></div>
+                            </div>
+
+                            <audio controls class="audio-preview" id="audioPreview"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Cover Art -->
+                    <div class="form-group">
+                        <label class="form-label">Cover Art</label>
+                        <div class="file-upload-area" id="coverUploadArea">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>Klik untuk upload cover art</p>
+                                <p class="file-types">JPG, PNG (Max 5MB)</p>
+                            </div>
+                            <input type="file" id="coverImage" class="file-input" accept=".jpg,.jpeg,.png,.webp">
+                            
+                            <div class="file-info" id="coverInfo">
+                                <div class="file-name" id="coverName"></div>
+                                <div class="file-size" id="coverSize"></div>
+                            </div>
+
+                            <img class="file-preview" id="coverPreview">
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="form-options">
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="explicitContent">
+                            <span class="checkbox-label">Konten Explicit</span>
+                        </label>
+                        
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="allowDownloads" checked>
+                            <span class="checkbox-label">Izinkan Download</span>
+                        </label>
+                        
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="monetization">
+                            <span class="checkbox-label">Aktifkan Monetisasi</span>
+                        </label>
+                        
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="collaborative" checked>
+                            <span class="checkbox-label">Kolaboratif</span>
+                        </label>
+                    </div>
+
+                    <!-- Upload Progress -->
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">Mempersiapkan upload...</div>
+                    </div>
+
+                    <!-- Upload Button -->
+                    <button type="submit" class="upload-btn" id="uploadBtn">
+                        <i class="fas fa-upload"></i> Upload Lagu
+                    </button>
+
+                    <!-- Success Message -->
+                    <div class="success-message" id="successMessage">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Upload Berhasil!</h3>
+                        <p>Lagu Anda telah berhasil diupload dan sedang diproses.</p>
+                        <p>Redirecting ke library...</p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="errorText">Terjadi kesalahan saat upload</span>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
@@ -598,34 +733,6 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>ndiidepzXmusic</h3>
-                    <p>Platform musik terbaik untuk mendengarkan dan berbagi karya musik.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Tautan Cepat</h3>
-                    <a href="docs.html">Beranda</a>
-                    <a href="#">Jelajahi</a>
-                    <a href="#">Album</a>
-                    <a href="upload.html">Upload</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Bantuan</h3>
-                    <a href="#">Pusat Bantuan</a>
-                    <a href="#">Kontak</a>
-                    <a href="#">Kebijakan Privasi</a>
-                    <a href="#">Syarat & Ketentuan</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Developer</h3>
-                    <p>ndiidepzX</p>
-                </div>
-            </div>
-            
             <div class="supported-by">
                 <span>Didukung oleh:</span>
                 <span>7F</span>
@@ -635,146 +742,363 @@
             </div>
             
             <div class="copyright">
-                &copy; 2023 ndiidepzXmusic. All rights reserved.
+                &copy; 2023 ndiidepzXmusic. All rights reserved. | Dev: ndiidepzX
             </div>
         </div>
     </footer>
-    
+
+    <script src="scripts/userData.js"></script>
     <script>
-        // Check if user is logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            const isLoggedIn = localStorage.getItem('ndiidepzXmusic_loggedIn');
+        // Create floating particles
+        function createFloatingParticles() {
+            const container = document.getElementById('floatingParticles');
             
-            if (!isLoggedIn) {
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            // Load user data
-            const username = localStorage.getItem('ndiidepzXmusic_username') || 'User';
-            document.getElementById('username').textContent = username;
-            document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
-            
-            // Set default artist name to username
-            document.getElementById('artistName').value = username;
-        });
-        
-        // File upload functionality
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const audioFileInput = document.getElementById('audioFile');
-        const uploadedFilesContainer = document.getElementById('uploadedFiles');
-        
-        fileUploadArea.addEventListener('click', () => {
-            audioFileInput.click();
-        });
-        
-        fileUploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileUploadArea.style.borderColor = var(--primary);
-            fileUploadArea.style.backgroundColor = 'rgba(29, 185, 84, 0.1)';
-        });
-        
-        fileUploadArea.addEventListener('dragleave', () => {
-            fileUploadArea.style.borderColor = var(--dark-gray);
-            fileUploadArea.style.backgroundColor = 'transparent';
-        });
-        
-        fileUploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileUploadArea.style.borderColor = var(--dark-gray);
-            fileUploadArea.style.backgroundColor = 'transparent';
-            
-            if (e.dataTransfer.files.length) {
-                handleFiles(e.dataTransfer.files);
-            }
-        });
-        
-        audioFileInput.addEventListener('change', () => {
-            if (audioFileInput.files.length) {
-                handleFiles(audioFileInput.files);
-            }
-        });
-        
-        function handleFiles(files) {
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                
-                // Check if file is audio
-                if (!file.type.startsWith('audio/')) {
-                    alert('Harap pilih file audio (MP3, WAV, FLAC)');
-                    continue;
-                }
-                
-                // Check file size (max 50MB)
-                if (file.size > 50 * 1024 * 1024) {
-                    alert('File terlalu besar. Maksimal 50MB.');
-                    continue;
-                }
-                
-                // Display uploaded file
-                const fileElement = document.createElement('div');
-                fileElement.className = 'uploaded-file';
-                fileElement.innerHTML = `
-                    <div class="file-info">
-                        <div class="file-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div>
-                            <div>${file.name}</div>
-                            <small>${(file.size / (1024 * 1024)).toFixed(2)} MB</small>
-                        </div>
-                    </div>
-                    <div class="file-actions">
-                        <button onclick="this.parentElement.parentElement.remove()">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    width: ${Math.random() * 3 + 1}px;
+                    height: ${Math.random() * 3 + 1}px;
+                    background: var(--primary);
+                    top: ${Math.random() * 100}vh;
+                    left: ${Math.random() * 100}vw;
+                    opacity: ${Math.random() * 0.2 + 0.1};
+                    animation: float ${Math.random() * 20 + 10}s infinite linear;
+                    animation-delay: ${Math.random() * 5}s;
                 `;
-                
-                uploadedFilesContainer.appendChild(fileElement);
+                container.appendChild(particle);
             }
         }
-        
-        // Payment method selection
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                paymentOptions.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-            });
+
+        // File upload handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingParticles();
+            initializeFileUploads();
         });
-        
+
+        function initializeFileUploads() {
+            // Audio file upload
+            const audioFileInput = document.getElementById('audioFile');
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const audioPreview = document.getElementById('audioPreview');
+
+            // Cover image upload
+            const coverImageInput = document.getElementById('coverImage');
+            const coverUploadArea = document.getElementById('coverUploadArea');
+            const coverInfo = document.getElementById('coverInfo');
+            const coverName = document.getElementById('coverName');
+            const coverSize = document.getElementById('coverSize');
+            const coverPreview = document.getElementById('coverPreview');
+
+            // Drag and drop for audio files
+            setupDragAndDrop(fileUploadArea, audioFileInput, handleAudioFileSelect);
+            setupDragAndDrop(coverUploadArea, coverImageInput, handleCoverImageSelect);
+
+            // Click handlers
+            audioFileInput.addEventListener('change', (e) => handleAudioFileSelect(e.target.files[0]));
+            coverImageInput.addEventListener('change', (e) => handleCoverImageSelect(e.target.files[0]));
+
+            function handleAudioFileSelect(file) {
+                if (file) {
+                    if (!isValidAudioFile(file)) {
+                        showError('Format file audio tidak didukung. Gunakan MP3, WAV, FLAC, atau M4A.');
+                        return;
+                    }
+
+                    if (file.size > 50 * 1024 * 1024) { // 50MB
+                        showError('File audio terlalu besar. Maksimal 50MB.');
+                        return;
+                    }
+
+                    fileName.textContent = file.name;
+                    fileSize.textContent = formatFileSize(file.size);
+                    fileInfo.classList.add('show');
+
+                    // Create preview URL
+                    const audioURL = URL.createObjectURL(file);
+                    audioPreview.src = audioURL;
+                    audioPreview.classList.add('show');
+
+                    // Validate audio duration
+                    validateAudioDuration(audioURL);
+                }
+            }
+
+            function handleCoverImageSelect(file) {
+                if (file) {
+                    if (!isValidImageFile(file)) {
+                        showError('Format file gambar tidak didukung. Gunakan JPG, PNG, atau WebP.');
+                        return;
+                    }
+
+                    if (file.size > 5 * 1024 * 1024) { // 5MB
+                        showError('File gambar terlalu besar. Maksimal 5MB.');
+                        return;
+                    }
+
+                    coverName.textContent = file.name;
+                    coverSize.textContent = formatFileSize(file.size);
+                    coverInfo.classList.add('show');
+
+                    // Create preview URL
+                    const imageURL = URL.createObjectURL(file);
+                    coverPreview.src = imageURL;
+                    coverPreview.classList.add('show');
+                }
+            }
+
+            function setupDragAndDrop(dropArea, fileInput, fileHandler) {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, preventDefaults, false);
+                });
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, unhighlight, false);
+                });
+
+                function highlight() {
+                    dropArea.classList.add('dragover');
+                }
+
+                function unhighlight() {
+                    dropArea.classList.remove('dragover');
+                }
+
+                dropArea.addEventListener('drop', handleDrop, false);
+
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    
+                    if (files.length > 0) {
+                        fileHandler(files[0]);
+                    }
+                }
+            }
+        }
+
+        function isValidAudioFile(file) {
+            const validTypes = ['audio/mpeg', 'audio/wav', 'audio/flac', 'audio/mp4', 'audio/aac'];
+            return validTypes.includes(file.type) || 
+                   file.name.toLowerCase().endsWith('.mp3') ||
+                   file.name.toLowerCase().endsWith('.wav') ||
+                   file.name.toLowerCase().endsWith('.flac') ||
+                   file.name.toLowerCase().endsWith('.m4a') ||
+                   file.name.toLowerCase().endsWith('.aac');
+        }
+
+        function isValidImageFile(file) {
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            return validTypes.includes(file.type) || 
+                   file.name.toLowerCase().endsWith('.jpg') ||
+                   file.name.toLowerCase().endsWith('.jpeg') ||
+                   file.name.toLowerCase().endsWith('.png') ||
+                   file.name.toLowerCase().endsWith('.webp');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function validateAudioDuration(audioURL) {
+            const audio = new Audio();
+            audio.src = audioURL;
+            
+            audio.addEventListener('loadedmetadata', function() {
+                const duration = audio.duration;
+                if (duration > 3600) { // 1 hour
+                    showError('Durasi audio terlalu panjang. Maksimal 1 jam.');
+                    document.getElementById('uploadBtn').disabled = true;
+                } else {
+                    document.getElementById('uploadBtn').disabled = false;
+                }
+            });
+        }
+
         // Form submission
-        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const songTitle = document.getElementById('songTitle').value;
-            const artistName = document.getElementById('artistName').value;
-            const genre = document.getElementById('genre').value;
-            const audioFile = document.getElementById('audioFile').files[0];
-            
-            if (!songTitle || !artistName || !genre || !audioFile) {
-                alert('Harap lengkapi semua field yang diperlukan!');
+            if (!validateForm()) {
                 return;
             }
-            
-            // Simulate upload process
-            alert(`Lagu "${songTitle}" berhasil diupload! Akan diproses dalam 24 jam.`);
-            
-            // Reset form
-            this.reset();
-            uploadedFilesContainer.innerHTML = '';
-            
-            // Reset payment method
-            paymentOptions.forEach(opt => opt.classList.remove('active'));
-            document.querySelector('.payment-option[data-method="gopay"]').classList.add('active');
+
+            await uploadSong();
         });
-        
-        function logout() {
-            localStorage.removeItem('ndiidepzXmusic_loggedIn');
-            localStorage.removeItem('ndiidepzXmusic_username');
-            localStorage.removeItem('ndiidepzXmusic_userEmail');
-            window.location.href = 'index.html';
+
+        function validateForm() {
+            const title = document.getElementById('songTitle').value.trim();
+            const artist = document.getElementById('artistName').value.trim();
+            const genre = document.getElementById('genre').value;
+            const audioFile = document.getElementById('audioFile').files[0];
+
+            if (!title) {
+                showError('Judul lagu harus diisi');
+                return false;
+            }
+
+            if (!artist) {
+                showError('Nama artist harus diisi');
+                return false;
+            }
+
+            if (!genre) {
+                showError('Genre harus dipilih');
+                return false;
+            }
+
+            if (!audioFile) {
+                showError('File audio harus diupload');
+                return false;
+            }
+
+            hideError();
+            return true;
+        }
+
+        async function uploadSong() {
+            const uploadBtn = document.getElementById('uploadBtn');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            // Show progress
+            uploadBtn.disabled = true;
+            uploadProgress.classList.add('show');
+
+            try {
+                // Simulate upload process
+                await simulateUploadProcess(progressFill, progressText);
+
+                // Get form data
+                const songData = getFormData();
+
+                // Save song to user data
+                await saveSongToUserData(songData);
+
+                // Show success message
+                showSuccess();
+
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = 'library.html';
+                }, 3000);
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                showError('Terjadi kesalahan saat upload: ' + error.message);
+                uploadBtn.disabled = false;
+                uploadProgress.classList.remove('show');
+            }
+        }
+
+        function getFormData() {
+            const audioFile = document.getElementById('audioFile').files[0];
+            const coverFile = document.getElementById('coverImage').files[0];
+
+            return {
+                id: 'song_' + Date.now(),
+                title: document.getElementById('songTitle').value.trim(),
+                artist: document.getElementById('artistName').value.trim(),
+                album: document.getElementById('albumName').value.trim(),
+                genre: document.getElementById('genre').value,
+                description: document.getElementById('description').value.trim(),
+                explicit: document.getElementById('explicitContent').checked,
+                allowDownloads: document.getElementById('allowDownloads').checked,
+                monetization: document.getElementById('monetization').checked,
+                collaborative: document.getElementById('collaborative').checked,
+                uploadDate: new Date().toISOString(),
+                duration: 0, // Will be calculated from audio file
+                plays: 0,
+                likes: 0,
+                // In real app, you would upload files to server and get URLs
+                audio: URL.createObjectURL(audioFile),
+                cover: coverFile ? URL.createObjectURL(coverFile) : '/assets/default-cover.jpg'
+            };
+        }
+
+        async function saveSongToUserData(songData) {
+            if (typeof userDataManager === 'undefined') {
+                throw new Error('User data manager not available');
+            }
+
+            const userEmail = userDataManager.getCurrentUser();
+            if (!userEmail) {
+                throw new Error('User not logged in');
+            }
+
+            const userData = await userDataManager.loadUserData(userEmail);
+            
+            // Add song to user's uploads
+            if (!userData.uploads) {
+                userData.uploads = { songs: [], albums: [], playlists: [] };
+            }
+
+            userData.uploads.songs.push(songData);
+
+            // Save updated user data
+            await userDataManager.saveUserData(userEmail, userData);
+
+            return songData;
+        }
+
+        async function simulateUploadProcess(progressFill, progressText) {
+            const steps = [
+                { percent: 10, text: 'Memvalidasi file...' },
+                { percent: 25, text: 'Mengupload audio...' },
+                { percent: 50, text: 'Mengupload cover art...' },
+                { percent: 75, text: 'Memproses metadata...' },
+                { percent: 90, text: 'Menyimpan ke database...' },
+                { percent: 100, text: 'Upload selesai!' }
+            ];
+
+            for (const step of steps) {
+                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+                progressFill.style.width = step.percent + '%';
+                progressText.textContent = step.text;
+            }
+        }
+
+        function showSuccess() {
+            const successMessage = document.getElementById('successMessage');
+            const uploadProgress = document.getElementById('uploadProgress');
+            
+            uploadProgress.classList.remove('show');
+            successMessage.classList.add('show');
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                hideError();
+            }, 5000);
+        }
+
+        function hideError() {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.classList.remove('show');
         }
     </script>
 </body>
